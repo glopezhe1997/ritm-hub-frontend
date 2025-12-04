@@ -1,0 +1,10 @@
+<!-- ...existing code... -->
+<div *ngIf="artist$ | async as artist; else loading">
+  <h3>{{ artist.name }}</h3>
+  <p>{{ artist.id }}</p>
+  <div *ngFor="let genre of artist.genres">
+    <span *ngIf="artist.genres?.includes(genre)">{{ genre }}</span>
+  </div>
+</div>
+<ng-template #loading>Loading...</ng-template>
+<!-- ...existing code... -->

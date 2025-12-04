@@ -1,0 +1,13 @@
+<!--Search bar-->
+<div>
+    <form (ngSubmit)="onSearch()">
+        <input 
+            [(ngModel)]="searchText" t
+            ype="text" 
+            placeholder="Search..." 
+            name="search"
+            class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA]"
+        />
+        <button type="submit">Search</button>
+    </form>
+</div>
