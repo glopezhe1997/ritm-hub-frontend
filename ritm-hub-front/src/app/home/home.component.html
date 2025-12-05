@@ -14,34 +14,53 @@
         <img 
             src="assets/images/home-music.jpg" 
             alt="Music Image" 
-            class="w-full h-auto max-h-96 object-cover rounded-xl"
+            class="w-full h-auto max-h-96 object-cover rounded-xl opacity-80"
         >
     </div>
 </section>
 
 <!--Section 2-->
-<section class="bg-[#101828]">
+<section class="bg-[#101828] px-6 py-12">
     <h2 class="text-white text-center mb-2 text-lg">Why Choose RitmHub?</h2>
-    <div>
-        <div>
-            <img src="" alt="">
-            <h3></h3>
-            <p></p>
-        </div>
-           <div>
-            <img src="" alt="">
-            <h3></h3>
-            <p></p>
-        </div>
-               <div>
-            <img src="" alt="">
-            <h3></h3>
-            <p></p>
-        </div>
-               <div>
-            <img src="" alt="">
-            <h3></h3>
-            <p></p>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!--Feature Component-->
+        <app-feature-card
+            [title]="'Milions of Songs'"
+            [description]="'Access a vast library of songs across all genres and artists.'"
+            [icon]="'assets/icons/songs-icon.png'"
+        >    
+        </app-feature-card>
+        <app-feature-card
+            [title]="'Discover New Music'"
+            [description]="'Get personalized recommendations based on your taste.'"
+            [icon]="'assets/icons/discover-music.png'"
+        >
+        </app-feature-card>
+        <app-feature-card
+            [title]="'Create Playlists'"
+            [description]="'Easily create and share your own playlists with friends.'"
+            [icon]="'assets/icons/playlists-icon.png'">
+        </app-feature-card>
+        <app-feature-card
+            [title]="'Social Media'"
+            [description]="'Share your posts with your friends.'"
+            [icon]="'assets/icons/social-sharing-icon.png'"
+        >
+        </app-feature-card>
     </div>
 </section>
+
+<!--Section With Trendings-->
+<!--Section 3 - Trending Playlists-->
+<app-trending-section
+    [sectionTitle]="'Trending Playlists'"
+    [itemType]="'Playlist'"
+    [items]="trendingPlaylists"
+></app-trending-section>
+
+<!--Section 4 - Popular Artists-->
+<app-trending-section
+    [sectionTitle]="'Popular Artists'"
+    [itemType]="'Artist'"
+    [items]="popularArtists"
+></app-trending-section>

@@ -1,0 +1,13 @@
+<section class="bg-[#0a0f1a] py-12 px-6">
+    <h2 class="text-white text-2xl font-bold mb-6">{{ sectionTitle }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <app-trending-items
+            *ngFor="let item of items"
+            [itemType]="itemType"
+            [title]="item.title"
+            [image]="item.image"
+            [link]="item.link"
+            [content]="item.content"
+        ></app-trending-items>
+    </div>
+</section>

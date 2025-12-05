@@ -1,10 +1,5 @@
-<!-- ...existing code... -->
-<div *ngIf="artist$ | async as artist; else loading">
-  <h3>{{ artist.name }}</h3>
-  <p>{{ artist.id }}</p>
-  <div *ngFor="let genre of artist.genres">
-    <span *ngIf="artist.genres?.includes(genre)">{{ genre }}</span>
-  </div>
+<div (click)="onClick()" class="cursor-pointer hover:scale-105 transition-transform">
+    <img [src]="artist.img_url" [alt]="artist.name" class="w-full h-48 object-cover rounded-xl">
+    <h3 class="text-white mt-2">{{ artist.name }}</h3>
+    <p class="text-gray-400 text-sm">{{ artist.followers }} followers</p>
 </div>
-<ng-template #loading>Loading...</ng-template>
-<!-- ...existing code... -->
