@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrl: './artist-list.component.css'
 })
 export class ArtistListComponent {
-  
+   artists: ArtistDto[] = [
+    { id: 1, name: 'Artist 1', img_url: '...', followers: 1000, external_id: '...', genres: ['pop'] },
+    { id: 2, name: 'Artist 2', img_url: '...', followers: 2000, external_id: '...', genres: ['rock', 'blues'] },
+    // ...más artistas
+  ];
   constructor(private router: Router) {}
 
   navigateToArtist(artist: ArtistDto) {

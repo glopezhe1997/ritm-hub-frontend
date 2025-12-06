@@ -52,15 +52,16 @@
 
 <!--Section With Trendings-->
 <!--Section 3 - Trending Playlists-->
-<app-trending-section
+<!-- <app-trending-section
     [sectionTitle]="'Trending Playlists'"
     [itemType]="'Playlist'"
     [items]="trendingPlaylists"
-></app-trending-section>
+></app-trending-section> -->
 
 <!--Section 4 - Popular Artists-->
 <app-trending-section
+    *ngIf="trendingArtists$ | async as artists"
     [sectionTitle]="'Popular Artists'"
     [itemType]="'Artist'"
-    [items]="popularArtists"
+    [items]="artists"
 ></app-trending-section>

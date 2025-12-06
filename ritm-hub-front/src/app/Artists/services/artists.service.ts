@@ -12,11 +12,8 @@ export class ArtistsService {
 
   constructor(private http: HttpClient) { }
 
-  getArtistByName(name: string): Observable<ArtistDto> {
-    console.log('Fetching artist by name:', name);
-    console.log('Request URL:', this.url + '/name/' + name);
-    const artist = this.http.get<ArtistDto>(this.url + '/name/' + name);
-    console.log('Received artist data:', artist);
-    return artist;
+  getTrendingArtists(): Observable<ArtistDto[]> {
+    const endpoint = `${this.url}/trending`;
+    return this.http.get<ArtistDto[]>(endpoint);
   }
 }
