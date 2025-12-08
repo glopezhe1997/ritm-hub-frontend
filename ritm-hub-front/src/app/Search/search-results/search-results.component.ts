@@ -20,7 +20,10 @@ interface SearchResultDto {
 export class SearchResultsComponent implements OnInit {
   results: SearchResultDto | null = null;
   query: string = '';
-
+  artistIndex = 0;
+  albumIndex = 0;
+  playlistIndex = 0;
+  Math = Math;
   constructor(
     private route: ActivatedRoute,
     private spotifyService: SpotifyService
@@ -35,5 +38,9 @@ export class SearchResultsComponent implements OnInit {
         });
       }
     });
+  }
+
+  getArtistNames(artists: any[]): string {
+    return artists?.map(a => a.name).join(', ') || '';
   }
 }

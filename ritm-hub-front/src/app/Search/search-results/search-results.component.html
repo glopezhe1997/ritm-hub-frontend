@@ -1,40 +1,210 @@
-<div *ngIf="results">
-  <div *ngIf="results.artists?.items?.length">
-    <h2>Artists</h2>
-    <ul>
-      <li *ngFor="let artist of results.artists.items">
-        {{ artist.name }}
-      </li>
-    </ul>
+<div *ngIf="results" class="bg-[#0a0f1a] p-2">
+  <!-- Desktop layout: aside + main -->
+  <div class="hidden md:flex">
+    <!-- Aside: Artists, Albums & Playlists Carousel -->
+    <aside class="w-1/4 p-4 bg-[#181f2f] rounded-lg mr-4 my-14">
+      <!-- Artists Carousel -->
+      <div *ngIf="results.artists?.length" class="mb-8">
+        <h2 class="text-lg text-[#9810FA] mb-2">Artists</h2>
+        <div class="relative flex items-center justify-center">
+          <button
+            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="artistIndex = Math.max(artistIndex - 1, 0)"
+            [disabled]="artistIndex === 0"
+            aria-label="Previous artist"
+          >&lt;</button>
+          <div class="flex flex-col items-center mx-auto w-32">
+            <img
+              *ngIf="results.artists[artistIndex]?.images?.length"
+              [src]="results.artists[artistIndex].images[0].url"
+              [alt]="results.artists[artistIndex].name"
+              class="w-24 h-24 object-cover rounded-full mb-2"
+            />
+            <p class="text-white font-semibold text-center">
+              {{ results.artists[artistIndex].name }}
+            </p>
+          </div>
+          <button
+            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="artistIndex = Math.min(artistIndex + 1, results.artists.length - 1)"
+            [disabled]="artistIndex === results.artists.length - 1"
+            aria-label="Next artist"
+          >&gt;</button>
+        </div>
+      </div>
+      <!-- Albums Carousel -->
+      <div *ngIf="results.albums?.length" class="mb-8">
+        <h2 class="text-lg text-[#9810FA] mb-2">Albums</h2>
+        <div class="relative flex items-center justify-center">
+          <button
+            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="albumIndex = Math.max(albumIndex - 1, 0)"
+            [disabled]="albumIndex === 0"
+            aria-label="Previous album"
+          >&lt;</button>
+          <div class="flex flex-col items-center mx-auto w-32">
+            <img
+              *ngIf="results.albums[albumIndex]?.images?.length"
+              [src]="results.albums[albumIndex].images[0].url"
+              [alt]="results.albums[albumIndex].name"
+              class="w-24 h-24 object-cover rounded-lg mb-2"
+            />
+            <p class="text-white font-semibold text-center">
+              {{ results.albums[albumIndex].name }}
+            </p>
+          </div>
+          <button
+            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="albumIndex = Math.min(albumIndex + 1, results.albums.length - 1)"
+            [disabled]="albumIndex === results.albums.length - 1"
+            aria-label="Next album"
+          >&gt;</button>
+        </div>
+      </div>
+      <!-- Playlists Carousel -->
+      <div *ngIf="results.playlists?.length" class="mb-8">
+        <h2 class="text-lg text-[#9810FA] mb-2">Playlists</h2>
+        <div class="relative flex items-center justify-center">
+          <button
+            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="playlistIndex = Math.max(playlistIndex - 1, 0)"
+            [disabled]="playlistIndex === 0"
+            aria-label="Previous playlist"
+          >&lt;</button>
+          <div class="flex flex-col items-center mx-auto w-32">
+            <img
+              *ngIf="results.playlists[playlistIndex]?.images?.length"
+              [src]="results.playlists[playlistIndex].images[0].url"
+              [alt]="results.playlists[playlistIndex].name"
+              class="w-24 h-24 object-cover rounded-lg mb-2"
+            />
+            <p class="text-white font-semibold text-center">
+              {{ results.playlists[playlistIndex].name }}
+            </p>
+          </div>
+          <button
+            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            (click)="playlistIndex = Math.min(playlistIndex + 1, results.playlists.length - 1)"
+            [disabled]="playlistIndex === results.playlists.length - 1"
+            aria-label="Next playlist"
+          >&gt;</button>
+        </div>
+      </div>
+    </aside>
+    <!-- Main: Tracks -->
+    <main class="w-full">
+      <!-- Tracks -->
+      <div *ngIf="results.tracks?.length" class="my-5">
+        <h2 class="text-lg text-[#9810FA] mb-2">Tracks</h2>
+        <div
+          *ngFor="let track of results.tracks"
+          class="w-full flex justify-between items-center p-4 bg-[#1E2939] rounded-lg my-2"
+        >
+          <div class="flex items-center gap-4">
+            <img
+              *ngIf="track.album?.images?.length"
+              [src]="track.album.images[0].url"
+              [alt]="track.name"
+              class="w-16 h-16 object-cover rounded-lg"
+            />
+            <div>
+              <p class="text-white font-semibold">{{ track.name }}</p>
+              <span class="text-gray-400 text-sm">
+                By {{ getArtistNames(track.artists) }}
+              </span>
+            </div>
+          </div>
+          <span class="text-gray-300 text-sm">
+            {{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}
+          </span>
+        </div>
+      </div>
+    </main>
   </div>
-
-  <div *ngIf="results.albums?.items?.length">
-    <h2>Albums</h2>
-    <ul>
-      <li *ngFor="let album of results.albums.items">
-        {{ album.name }}
-      </li>
-    </ul>
-  </div>
-
-  <div *ngIf="results.tracks?.items?.length">
-    <h2>Tracks</h2>
-    <ul>
-      <li *ngFor="let track of results.tracks.items">
-        {{ track.name }}
-      </li>
-    </ul>
-  </div>
-
-  <div *ngIf="results.playlists?.items?.length">
-    <h2>Playlists</h2>
-    <ul>
-      <li *ngFor="let playlist of results.playlists.items">
-        {{ playlist.name }}
-      </li>
-    </ul>
+  <!-- Mobile layout: todo como antes -->
+  <div class="block md:hidden">
+    <!-- Artists -->
+    <div *ngIf="results.artists?.length" class="mb-5">
+      <h2 class="text-lg text-[#9810FA] mb-2">Artists</h2>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <div
+          *ngFor="let artist of results.artists"
+          class="flex flex-col items-center w-32"
+        >
+          <img
+            *ngIf="artist.images?.length"
+            [src]="artist.images[0].url"
+            [alt]="artist.name"
+            class="w-24 h-24 object-cover rounded-full mb-2"
+          />
+          <p class="text-white font-semibold text-center">{{ artist.name }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Albums -->
+    <div *ngIf="results.albums?.length" class="my-5">
+      <h2 class="text-lg text-[#9810FA] mb-2">Albums</h2>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <div
+          *ngFor="let album of results.albums"
+          class="flex flex-col items-center w-32"
+        >
+          <img
+            *ngIf="album.images?.length"
+            [src]="album.images[0].url"
+            [alt]="album.name"
+            class="w-24 h-24 object-cover rounded-lg mb-2"
+          />
+          <p class="text-white font-semibold text-center">{{ album.name }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Tracks -->
+    <div *ngIf="results.tracks?.length" class="my-5">
+      <h2 class="text-lg text-[#9810FA] mb-2">Tracks</h2>
+      <div
+        *ngFor="let track of results.tracks"
+        class="w-4/5 flex justify-between items-center p-4 bg-[#1E2939] rounded-lg my-2"
+      >
+        <div class="flex items-center gap-4">
+          <img
+            *ngIf="track.album?.images?.length"
+            [src]="track.album.images[0].url"
+            [alt]="track.name"
+            class="w-16 h-16 object-cover rounded-lg"
+          />
+          <div>
+            <p class="text-white font-semibold">{{ track.name }}</p>
+            <span class="text-gray-400 text-sm">
+              By {{ getArtistNames(track.artists) }}
+            </span>
+          </div>
+        </div>
+        <span class="text-gray-300 text-sm">
+          {{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}
+        </span>
+      </div>
+    </div>
+    <!-- Playlists -->
+    <div *ngIf="results.playlists?.length" class="my-5">
+      <h2 class="text-lg text-[#9810FA] mb-2">Playlists</h2>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <div
+          *ngFor="let playlist of results.playlists"
+          class="flex flex-col items-center w-32"
+        >
+          <img
+            *ngIf="playlist?.images?.length"
+            [src]="playlist.images[0].url"
+            [alt]="playlist.name"
+            class="w-24 h-24 object-cover rounded-lg mb-2"
+          />
+          <p class="text-white font-semibold text-center">{{ playlist.name }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div *ngIf="!results">
-  <p>No results found.</p>
+  <p class="text-white text-center mt-8">No results found.</p>
 </div>

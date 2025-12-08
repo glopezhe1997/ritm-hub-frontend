@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../Shared/header/header.component";
 import { FeatureCardComponent } from "../Shared/feature-card/feature-card.component";
 import { TrendingSectionComponent } from "../Shared/trending-section/trending-section.component";
 import { Observable } from 'rxjs';
@@ -23,7 +22,7 @@ interface TrendingItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FeatureCardComponent, TrendingSectionComponent],
+  imports: [CommonModule, FeatureCardComponent, TrendingSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
