@@ -1,0 +1,19 @@
+<!--Search bar-->
+<div>
+    <form (ngSubmit)="onSearch()" class="flex items-center">
+        <input 
+            [(ngModel)]="searchText" 
+            type="text" 
+            placeholder="Search..." 
+            name="search"
+            class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA]"
+        />
+        <button type="submit">
+            <img 
+                src="assets/icons/search.png" 
+                alt="Search icon" 
+                class="w-6 h-6 object-cover brightness-0 invert"
+            >
+        </button>
+    </form>
+</div>

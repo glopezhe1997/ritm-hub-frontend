@@ -9,6 +9,9 @@ import { ArtistEffects } from './Artists/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
+import { AlbumsEffects } from './Albums/effects';
+import { TrackEffects } from './Tracks/effects';
+import { PlaylistEffects } from './Playlists/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +19,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStore(appReducers),
-    provideEffects([ArtistEffects]),
+    provideEffects([
+      ArtistEffects,
+      AlbumsEffects,
+      TrackEffects,
+      PlaylistEffects,
+    ]),
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }) // DevTools opcional
   ],
 };

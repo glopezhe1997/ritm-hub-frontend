@@ -1,12 +1,12 @@
 <header 
-  class="flex justify-between align-center p-3 bg-light bg-[#030303] text-white"
+  class="flex justify-between align-center items-center p-3 bg-light bg-[#030303] text-white"
 >
     <div class="logo">
         <img src="assets/logo.png" alt="App Logo">
     </div>
 
     <!--Search Component-->
-    <app-search-bar></app-search-bar>
+    <app-search-bar (search)="onSearch($event)"></app-search-bar>
 
     <!--Navegation Menu Component-->
     <app-navegation-menu></app-navegation-menu>

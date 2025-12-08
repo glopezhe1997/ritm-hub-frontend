@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { SearchBarComponent } from "../search-bar/search-bar.component";
+import { SearchBarComponent } from "../../Search/search-bar/search-bar.component";
 import { NavegationMenuComponent } from "../navegation-menu/navegation-menu.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +11,12 @@ import { NavegationMenuComponent } from "../navegation-menu/navegation-menu.comp
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  constructor(private router: Router) { }
 
+  onSearch(query: string): void {
+    if(!query || query.trim() === '') {
+      return;
+    }
+    this.router.navigate(['/search'], { queryParams: { q: query } });
+  }
 }

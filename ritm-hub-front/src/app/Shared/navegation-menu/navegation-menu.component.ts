@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 interface MenuItem {
   label: string;
   route: string;
+  icon?: string;
+  showLabel?: boolean;
 }
 
 @Component({
@@ -17,12 +19,12 @@ interface MenuItem {
 
 export class NavegationMenuComponent {
   menuItems: MenuItem[] = [
-    { label: 'Home', route: '/home' },
-    { label: 'Playlists', route: '/about' },
-    { label: 'Social', route: '/social' },
-    { label: 'Register', route: '/register' },
-    { label: 'Sign In', route: '/sign' },
-    { label: 'Profile', route: '/profile' },
-    { label: 'admin', route: '/admin' }
-  ]
+    { label: 'Home', route: '/home', icon: 'home.png', showLabel: false },
+    { label: 'Playlists', route: '/playlists', icon: 'songs-icon.png', showLabel: false },
+    { label: 'Social', route: '/social', icon: 'social.png', showLabel: false },
+    { label: 'Register', route: '/register', showLabel: true },
+    { label: 'Sign In', route: '/sign', showLabel: true },
+    { label: 'Profile', route: '/profile', showLabel: true },
+    { label: 'Admin', route: '/admin', showLabel: true }
+  ];
 }

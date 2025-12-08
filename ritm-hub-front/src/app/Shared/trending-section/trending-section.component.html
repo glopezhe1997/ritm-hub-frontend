@@ -1,5 +1,8 @@
 <section class="bg-[#0a0f1a] py-12 px-6">
-    <h2 class="text-white text-2xl font-bold mb-6">{{ sectionTitle }}</h2>
+    <div class="flex justify-between">
+        <h2 class="text-white text-2xl font-bold mb-6">{{ sectionTitle }}</h2>
+        <a [routerLink]="linkToAll" class="text-[#9810FA] hover:text-[#a628ff]">View All</a>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <app-trending-items
             *ngFor="let item of items"

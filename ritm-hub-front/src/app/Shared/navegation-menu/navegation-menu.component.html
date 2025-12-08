@@ -3,9 +3,15 @@
         <li *ngFor="let item of menuItems">
             <a 
                 [routerLink]="item.route" 
-                class="inline-block text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
+                class="inline-flex items-center gap-2 text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
             >
-                {{ item.label }}
+                <img 
+                    *ngIf="item.icon" 
+                    [src]="'assets/icons/' + item.icon" 
+                    [alt]="item.label" 
+                    class="w-6 h-6 brightness-0 invert"
+                >
+                <span *ngIf="item.showLabel">{{ item.label }}</span>
             </a>
         </li>
     </ul>

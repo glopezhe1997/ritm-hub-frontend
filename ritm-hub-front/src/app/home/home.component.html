@@ -62,6 +62,31 @@
 <app-trending-section
     *ngIf="trendingArtists$ | async as artists"
     [sectionTitle]="'Popular Artists'"
-    [itemType]="'Artist'"
+    [itemType]="'Artists'"
     [items]="artists"
+></app-trending-section>
+
+<!--Section 4 - Popular Albums-->
+<app-trending-section
+    *ngIf="trendingAlbums$ | async as albums"
+    [sectionTitle]="'Popular Albums'"
+    [itemType]="'Albums'"
+    [items]="albums"
+></app-trending-section>
+
+
+<!--Section 4 - Popular Tracks-->
+<app-trending-section
+    *ngIf="trendingTracks$ | async as tracks"
+    [sectionTitle]="'Popular Tracks'"
+    [itemType]="'Tracks'"
+    [items]="tracks"
+></app-trending-section>
+
+<!--Section 4 - Popular Playlists-->
+<app-trending-section
+    *ngIf="trendingPlaylists$ | async as playlists"
+    [sectionTitle]="'Popular Playlists'"
+    [itemType]="'Playlists'"
+    [items]="playlists"
 ></app-trending-section>

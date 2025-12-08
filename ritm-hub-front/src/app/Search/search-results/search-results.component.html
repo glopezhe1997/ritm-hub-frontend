@@ -1,0 +1,40 @@
+<div *ngIf="results">
+  <div *ngIf="results.artists?.items?.length">
+    <h2>Artists</h2>
+    <ul>
+      <li *ngFor="let artist of results.artists.items">
+        {{ artist.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.albums?.items?.length">
+    <h2>Albums</h2>
+    <ul>
+      <li *ngFor="let album of results.albums.items">
+        {{ album.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.tracks?.items?.length">
+    <h2>Tracks</h2>
+    <ul>
+      <li *ngFor="let track of results.tracks.items">
+        {{ track.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="results.playlists?.items?.length">
+    <h2>Playlists</h2>
+    <ul>
+      <li *ngFor="let playlist of results.playlists.items">
+        {{ playlist.name }}
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="!results">
+  <p>No results found.</p>
+</div>
