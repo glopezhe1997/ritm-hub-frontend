@@ -4,12 +4,14 @@ import * as ArtistReducer from './Artists/reducers/artist.reducer';
 import * as albumsReducer from './Albums/reducers/album.reducer';
 import * as TrackReducer from './Tracks/reducers/track.reducer';
 import * as PlaylistReducer from './Playlists/reducers/playlist.reducer';
+import * as AuthReducer from './Auth/reducers/auth.reducer';
 
 export interface AppState {
     artistState: ArtistReducer.ArtistState;
     albumState: albumsReducer.AlbumState;
     trackState: TrackReducer.TrackState;
     playlistState: PlaylistReducer.PlaylistState;
+    authState: AuthReducer.AuthState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -17,4 +19,5 @@ export const appReducers: ActionReducerMap<AppState> = {
     albumState: albumsReducer.albumsReducer,
     trackState: TrackReducer.tracksReducer,
     playlistState: PlaylistReducer.playlistsReducer,
+    authState: AuthReducer.authReducer,
 };

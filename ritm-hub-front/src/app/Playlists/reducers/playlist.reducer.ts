@@ -32,5 +32,21 @@ export const playlistsReducer = createReducer(
     ...state,
     loading: false,
     error: payload
-  }))
+  })),
+  on(PlaylistActions.getUserPlaylists, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PlaylistActions.getUserPlaylistsSuccess, (state, { playlists }) => ({
+    ...state,
+    playlists,
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.getUserPlaylistsFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  })),
 );

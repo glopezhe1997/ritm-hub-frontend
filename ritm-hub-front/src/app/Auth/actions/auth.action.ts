@@ -1,0 +1,20 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { createAction, props } from '@ngrx/store';
+import { SignInDto } from '../Models/sign-in.dto';
+
+export const login = createAction(
+  '[Login Page] Login',
+  props<{ credentials: SignInDto }>()
+);
+
+export const loginSuccess = createAction(
+  '[Login Page] Login Success',
+  props<{ access_token: string }>()
+);
+
+export const loginFailure = createAction(
+  '[Login Page] Login Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+export const logout = createAction('[Login Page] Logout');

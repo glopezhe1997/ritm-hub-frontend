@@ -17,4 +17,9 @@ export class SpotifyService {
     const endpoint = `${this.apiUrl}/search?q=${encodeURIComponent(q)}`;
     return this.http.get<any>(endpoint);
   }
+
+  postSearch(id: string, type: string): Observable<any> {
+    const endpoint = `${this.apiUrl}/select`;
+    return this.http.post<any>(endpoint, { external_id: id, type });
+  }
 }

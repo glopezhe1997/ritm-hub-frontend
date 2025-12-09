@@ -12,6 +12,7 @@ import { environment } from '../environments/environment.development';
 import { AlbumsEffects } from './Albums/effects';
 import { TrackEffects } from './Tracks/effects';
 import { PlaylistEffects } from './Playlists/effects';
+import { AuthEffects } from './Auth/effects/auth.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       AlbumsEffects,
       TrackEffects,
       PlaylistEffects,
+      AuthEffects,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }) // DevTools opcional
   ],
