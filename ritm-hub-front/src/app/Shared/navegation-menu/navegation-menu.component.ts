@@ -23,7 +23,7 @@ export class NavegationMenuComponent {
     { label: 'Playlists', route: '/playlists', icon: 'songs-icon.png', showLabel: false },
     { label: 'Social', route: '/social', icon: 'social.png', showLabel: false },
     { label: 'Register', route: '/register', showLabel: true },
-    { label: 'Sign In', route: '/sign', showLabel: true },
+    { label: 'Login', route: '/login', showLabel: true },
     { label: 'Profile', route: '/profile', showLabel: true },
     { label: 'Admin', route: '/admin', showLabel: true }
   ];

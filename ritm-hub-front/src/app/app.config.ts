@@ -13,6 +13,7 @@ import { AlbumsEffects } from './Albums/effects';
 import { TrackEffects } from './Tracks/effects';
 import { PlaylistEffects } from './Playlists/effects';
 import { AuthEffects } from './Auth/effects/auth.effects';
+import { UsersEffects } from './Users/effects/users.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       TrackEffects,
       PlaylistEffects,
       AuthEffects,
+      UsersEffects,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }) // DevTools opcional
   ],

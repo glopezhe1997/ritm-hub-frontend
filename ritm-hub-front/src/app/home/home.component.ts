@@ -22,7 +22,11 @@ interface TrendingItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FeatureCardComponent, TrendingSectionComponent],
+  imports: [
+    CommonModule, 
+    FeatureCardComponent, 
+    TrendingSectionComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

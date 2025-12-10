@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="w-full h-screen flex items-center justify-center bg-[#0a0f1a]">
+  <form 
+    [formGroup]="loginForm" 
+    (ngSubmit)="onSubmit()"
+    class="w-full max-w-md mx-auto p-8 bg-[#101828] rounded-xl flex flex-col gap-6 shadow-lg"
+  >
+    <div>
+      <label class="block mb-2 text-[#9810FA] font-semibold">Email:</label>
+      <input 
+        type="email" 
+        formControlName="email" 
+        placeholder="Email..." 
+        required
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+      />
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500 mt-1 text-sm">
+        <span *ngIf="email.errors?.['required']">Email is required.</span>
+        <span *ngIf="email.errors?.['email']">Invalid email address.</span>
+      </div>
+    </div>
+
+    <div>
+      <label class="block mb-2 text-[#9810FA] font-semibold">Password:</label>
+      <input 
+        type="password" 
+        formControlName="password" 
+        placeholder="Password..." 
+        required
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+      />
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-500 mt-1 text-sm">
+        <span *ngIf="password.errors?.['required']">Password is required.</span>
+        <span *ngIf="password.errors?.['minlength']">Minimum 8 characters.</span>
+        <span *ngIf="password.errors?.['maxlength']">Maximum 16 characters.</span>
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="loginForm.invalid"
+      class="w-full py-2 rounded-lg bg-[#9810FA] text-white font-bold hover:bg-[#7a0fc2] transition"
+    >
+      Login
+    </button>
+    <div *ngIf="errorMessage" class="text-red-500 text-center mt-2">{{ errorMessage }}</div>
+  </form>
+</div>
