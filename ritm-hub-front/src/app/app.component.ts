@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./Shared/header/header.component";
+import { Store } from '@ngrx/store';
+import { loadToken } from './Auth/actions/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +11,15 @@ import { HeaderComponent } from "./Shared/header/header.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ritm-hub-front';
+
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      this.store.dispatch(loadToken({ access_token: token }));
+    }
+  }
 }

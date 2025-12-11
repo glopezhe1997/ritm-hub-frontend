@@ -9,7 +9,7 @@ import { UserDto } from '../../Users/models/user.dto';
   providedIn: 'root'
 })
 export class PlaylistsService {
-  private url = 'http://localhost:3000/playlists';
+  private url = `${environment.apiUrl}/playlists`;
 
   constructor(private http: HttpClient) { }
 

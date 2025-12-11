@@ -45,7 +45,9 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    if (this.registerForm.invalid) return;
+    if (this.registerForm.invalid) {
+      return;
+    }
     const { username, name, Birthdate, email, password } = this.registerForm.value;
     const user = { username, name, Birthdate: new Date(Birthdate), email, password } as CreateUserDto;
     this.store.dispatch(registerUser({ user }));

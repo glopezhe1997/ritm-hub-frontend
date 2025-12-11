@@ -17,4 +17,9 @@ export const loginFailure = createAction(
   props<{ payload: HttpErrorResponse }>()
 );
 
+export const loadToken = createAction(
+  '[Auth] Load Token',
+  props<{ access_token: string }>()
+);
+
 export const logout = createAction('[Login Page] Logout');

@@ -79,12 +79,15 @@ export class HomeComponent implements OnInit {
 
     this.trendingPlaylists$ = this.store.select(state => state.playlistState.playlists).pipe(
       tap(playlists => console.log('Playlists from store:', playlists)),
-      map(playlists => playlists.map(playlist => ({
-        title: playlist.name,
-        image: playlist.images?.[0]?.url || 'assets/default-playlist.png',
-        link: `/playlist/${playlist.id}`,
-        content: `By ${playlist.owner?.display_name || 'Unknown'} - ${playlist.tracks?.total || 0} tracks`
-      })))
+      map(playlists => playlists
+        .filter(playlist => playlist !== null && playlist !== undefined) // <-- Filtra nulos
+        .map(playlist => ({
+          title: playlist.name,
+          image: playlist.images?.[0]?.url || 'assets/default-playlist.png',
+          link: `/playlist/${playlist.id}`,
+          content: `By ${playlist.owner?.display_name || 'Unknown'} - ${playlist.tracks?.total || 0} tracks`
+        }))
+      )
     );
   }
 }
