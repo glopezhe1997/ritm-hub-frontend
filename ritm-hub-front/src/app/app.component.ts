@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./Shared/header/header.component";
+import { HeaderComponent } from "./Shared/Components/header/header.component";
 import { Store } from '@ngrx/store';
 import { loadToken } from './Auth/actions/auth.action';
 

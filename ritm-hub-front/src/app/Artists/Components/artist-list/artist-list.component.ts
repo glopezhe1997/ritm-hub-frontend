@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ArtistItemComponent } from '../artist-item/artist-item.component';
-import { ArtistDto } from '../Models/artist.dto';
+import { ArtistDto } from '../../Models/artist.dto';
 import { Router } from '@angular/router';
 
 @Component({

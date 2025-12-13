@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchBarComponent } from "../../Search/search-bar/search-bar.component";
+import { SearchBarComponent } from "../../../Search/Components/search-bar/search-bar.component";
 import { NavegationMenuComponent } from "../navegation-menu/navegation-menu.component";
 import { Router } from '@angular/router';
 

@@ -1,7 +1,7 @@
 // ...existing code...
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import type { ArtistDto } from '../Models/artist.dto';
+import type { ArtistDto } from '../../Models/artist.dto';
 
 @Component({
   selector: 'app-artist-item',

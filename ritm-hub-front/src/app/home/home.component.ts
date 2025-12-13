@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FeatureCardComponent } from "../Shared/feature-card/feature-card.component";
-import { TrendingSectionComponent } from "../Shared/trending-section/trending-section.component";
+import { FeatureCardComponent } from "../Shared/Components/feature-card/feature-card.component";
+import { TrendingSectionComponent } from "../Shared/Components/trending-section/trending-section.component";
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ArtistDto } from '../Artists/Models/artist.dto';

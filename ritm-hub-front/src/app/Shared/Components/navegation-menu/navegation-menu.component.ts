@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, startWith } from 'rxjs';
-import { AppState } from '../../app.reducer';
-import { selectIsAuthenticated } from '../../Auth/selectors/auth.selectors';
-import { logout } from '../../Auth/actions/auth.action';
+import { AppState } from '../../../app.reducer';
+import { selectIsAuthenticated } from '../../../Auth/selectors/auth.selectors';
+import { logout } from '../../../Auth/actions/auth.action';
 
 interface MenuItem {
   label: string;

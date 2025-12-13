@@ -8,11 +8,11 @@ export const routes: Routes = [
   },
   {
     path: 'search',
-    loadComponent: () => import('./Search/search-results/search-results.component').then(m => m.SearchResultsComponent)
+    loadComponent: () => import('./Search/Components/search-results/search-results.component').then(m => m.SearchResultsComponent)
   },
   {
     path: 'login',
-    loadComponent: () => import('./Auth/login/login/login.component').then(m => m.LoginComponent)
+    loadComponent: () => import('./Auth/Components/login/login.component').then(m => m.LoginComponent)
   },
   {
     path: 'register',

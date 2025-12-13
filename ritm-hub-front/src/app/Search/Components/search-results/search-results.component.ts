@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SpotifyService } from '../Services/Spotify/spotify.service';
+import { SpotifyService } from '../../Services/Spotify/spotify.service';
 import { CommonModule } from '@angular/common';
 
 interface SearchResultDto {
