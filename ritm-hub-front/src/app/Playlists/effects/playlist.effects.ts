@@ -20,6 +20,30 @@ export class PlaylistEffects {
     )
   );
 
+  getUserPlaylists$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.getUserPlaylists),
+      switchMap(action =>
+        this.playlistsService.getUserPlaylists().pipe(
+          map(playlists => PlaylistActions.getUserPlaylistsSuccess({ playlists })),
+          catchError(error => of(PlaylistActions.getUserPlaylistsFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
+  postCreateUserPlaylist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.postCreateUserPlaylist),
+      switchMap(action =>
+        this.playlistsService.postCreateUserPlaylist(action.playlist).pipe(
+          map(playlist => PlaylistActions.postCreateUserPlaylistSuccess({ playlist })),
+          catchError(error => of(PlaylistActions.postCreateUserPlaylistFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private playlistsService: PlaylistsService

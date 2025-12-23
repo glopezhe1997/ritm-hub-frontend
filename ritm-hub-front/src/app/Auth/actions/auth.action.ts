@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { SignInDto } from '../Models/sign-in.dto';
+import { UserDto } from '../../Users/models/user.dto';
 
 export const login = createAction(
   '[Login Page] Login',
@@ -9,7 +10,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   '[Login Page] Login Success',
-  props<{ access_token: string }>()
+  props<{ access_token: string, user: UserDto }>()
 );
 
 export const loginFailure = createAction(

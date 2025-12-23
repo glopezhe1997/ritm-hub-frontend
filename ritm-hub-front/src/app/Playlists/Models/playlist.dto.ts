@@ -1,13 +1,14 @@
 export interface PlaylistDto {
-  id: string;
+  playlist_id: number;  // <-- era 'id: string'
   name: string;
   description?: string | null;
-  images?: Array<{ url: string; height: number; width: number }>;
-  owner: {
+  images?: string | null;  // <-- simplifica si solo es una URL
+  owner_id?: number | null;  // <-- era 'owner: { display_name: string }'
+  tracks: any[];
+  is_public?: boolean;
+  external_id?: string | null;
+  createdAt?: string;
+  owner?: {
     display_name: string;
-  };
-  tracks: {
-    total: number;
-  };
-  public?: boolean;
+  }
 }
