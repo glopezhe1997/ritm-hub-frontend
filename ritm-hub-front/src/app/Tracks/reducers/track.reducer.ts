@@ -32,5 +32,21 @@ export const tracksReducer = createReducer(
     ...state,
     loading: false,
     error: payload
-  }))
+  })),
+  //Search Tracks
+  on(TrackActions.searchTracks, (state) => ({
+    ...state,
+    loading: true
+  })),
+  on(TrackActions.getTrendingTracksSuccess, (state, { tracks }) => ({
+    ...state,
+    tracks,
+    loading: false,
+    error: null
+  })),
+  on(TrackActions.getTrendingTracksFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  })),
 );

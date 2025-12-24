@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PlaylistDto } from '../../Models/playlist.dto';
-import { PlaylistsService } from '../../services/playlists.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { CommonModule } from '@angular/common';
@@ -19,7 +18,6 @@ import { Router, RouterLink } from "@angular/router";
 export class PlaylistListComponent implements OnInit {
   playlists: PlaylistDto[] = [];
   constructor(
-    private playlistsService: PlaylistsService,
     private store: Store<AppState>,
     private router: Router
   ) {

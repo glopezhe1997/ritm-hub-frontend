@@ -1,1 +1,29 @@
-<p>playlist-detail works!</p>
+<section class="bg-[#101828] min-h-screen flex flex-col items-center py-8">
+  <div class="bg-[#1E293B] rounded-xl shadow-lg p-8 w-full max-w-xl flex flex-col items-center">
+    <div class="w-32 h-32 mb-4">
+      <img
+        [src]="playlist?.images?.[0] || 'assets/icons/playlists-icon.png'"
+        alt="playlist cover"
+        class="rounded-lg w-full h-full object-cover border-2 border-[#9810FA]"
+      />
+    </div>
+    <h2 class="text-3xl font-bold text-[#9810FA] mb-2">{{ playlist?.name }}</h2>
+    <p class="text-gray-300 mb-2 italic" *ngIf="playlist?.description">{{ playlist?.description }}</p>
+    <div class="flex items-center gap-4 mb-4">
+      <span class="text-sm text-gray-400">
+        <img src="assets/icons/music.png" alt="tracks" class="inline w-5 h-5 mr-1 invert" />
+        {{ playlist?.tracks?.length || 0 }} tracks
+      </span>
+      <span
+        class="text-xs px-2 py-1 rounded-full"
+        [ngClass]="playlist?.is_public ? 'bg-green-700 text-green-200' : 'bg-gray-700 text-gray-300'"
+      >
+        {{ playlist?.is_public ? 'Public' : 'Private' }}
+      </span>
+    </div>
+    <app-manage-tracks-playlist 
+      [playlist]="playlist"
+    >
+    </app-manage-tracks-playlist>
+  </div>
+</section>

@@ -20,6 +20,18 @@ export class TrackEffects {
     )
   );
 
+  searchTracks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TrackActions.searchTracks),
+      switchMap(({ query }) =>
+        this.tracksService.searchTracks(query).pipe(
+          map(tracks => TrackActions.searchTracksSuccess({ tracks })),
+          catchError(error => of(TrackActions.searchTracksFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private tracksService: TracksService

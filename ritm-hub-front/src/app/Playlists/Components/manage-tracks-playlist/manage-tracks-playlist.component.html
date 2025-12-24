@@ -1,0 +1,46 @@
+<h3 class="text-lg text-[#9810FA] mb-2">Tracks</h3>
+
+<!-- Barra de búsqueda -->
+<app-search-bar (search)="onSearchTracks($event)"></app-search-bar>
+
+<!-- Resultados de búsqueda de Spotify -->
+<div *ngIf="searchResults.length" class="w-full mt-4">
+  <h4 class="text-[#9810FA] mb-2">Resultados de Spotify</h4>
+  <ul class="divide-y divide-[#9810FA]/10">
+    <li *ngFor="let track of searchResults" class="py-2 flex items-center gap-3">
+      <span class="flex-1 text-gray-200">{{ track.name }}</span>
+      <!-- <button
+        class="ml-2 px-2 py-1 bg-[#9810FA] text-white rounded hover:bg-[#7a0fc2] transition"
+        (click)="addTrackToPlaylist(track)"
+      >
+        Añadir
+      </button> -->
+    </li>
+    <li *ngIf="!searchResults.length" class="text-gray-400 py-4 text-center">No hay resultados</li>
+  </ul>
+</div>
+
+<!-- Tracks actuales de la playlist -->
+<div class="w-full mt-6">
+  <h4 class="text-[#9810FA] mb-2">En la playlist</h4>
+  <ul class="divide-y divide-[#9810FA]/10">
+    <li
+      *ngFor="let track of playlist?.tracks; let i = index"
+      class="py-2 flex items-center gap-3"
+    >
+      <span class="text-[#9810FA] font-bold w-6 text-right">{{ i + 1 }}.</span>
+      <span class="flex-1 text-gray-200">{{ track.title }}</span>
+      <span class="text-xs text-gray-400">{{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}</span>
+      <a *ngIf="track.preview_url" [href]="track.preview_url" target="_blank" class="ml-2">
+        <img src="assets/icons/play.png" alt="preview" class="w-5 h-5 invert" />
+      </a>
+      <!-- <button
+        class="ml-2 px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        (click)="removeTrackFromPlaylist(track)"
+      >
+        Quitar
+      </button> -->
+    </li>
+    <li *ngIf="!playlist?.tracks?.length" class="text-gray-400 py-4 text-center">Add tracks</li>
+  </ul>
+</div>
