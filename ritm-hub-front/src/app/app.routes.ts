@@ -23,12 +23,12 @@ export const routes: Routes = [
     loadComponent: () => import('./Playlists/Components/playlist-list/playlist-list.component').then(m => m.PlaylistListComponent)
   },
   {
-    path: 'playlists/:id',
-    loadComponent: () => import('./Playlists/Components/playlist-detail/playlist-detail.component').then(m => m.PlaylistDetailComponent)
-  },
-  {
   path: 'playlists/create',
   loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent)
+  },
+  {
+    path: 'playlists/:id',
+    loadComponent: () => import('./Playlists/Components/playlist-detail/playlist-detail.component').then(m => m.PlaylistDetailComponent)
   },
   {
     path: 'playlists/edit/:id',

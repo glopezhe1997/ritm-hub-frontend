@@ -71,5 +71,38 @@ export const playlistsReducer = createReducer(
     ...state,
     loading: false,
     error: payload
+  })),
+  on(PlaylistActions.getPlaylistById, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PlaylistActions.getPlaylistByIdSuccess, (state, { playlist }) => ({
+    ...state,
+    playlist,
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.getPlaylistByIdFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  })),
+  //Delete Playlist
+  on(PlaylistActions.deleteUserPlaylist, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PlaylistActions.deleteUserPlaylistSuccess, (state, { playlistId }) => ({
+    ...state,
+    playlists: state.playlists.filter(p => p.playlist_id !== playlistId),
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.deleteUserPlaylistFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
   }))
 );

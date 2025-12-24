@@ -13,8 +13,9 @@
             <app-playlist-item
                 [playlistName]="playlist.name"
                 [trackCount]="playlist.tracks.length"
-                [imageUrl]="playlist.images || 'assets/icons/playlists-icon.png'"                
-                [playlistId]="playlist.playlist_id"
+                [imageUrl]="playlist.images?.[0] || 'assets/icons/playlists-icon.png'"                [playlistId]="playlist.playlist_id"
+                (editPlaylist)="navigateToEdit($event)"
+                (deletePlaylist)="onDeletePlaylist($event)"
             ></app-playlist-item>
             </div>
         </li>

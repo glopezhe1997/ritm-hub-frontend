@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -13,4 +13,16 @@ export class PlaylistItemComponent {
   @Input() trackCount: number = 0;
   @Input() playlistId: number | undefined;
   @Input() imageUrl: string | undefined = '';
+  @Output() editPlaylist = new EventEmitter<number>();
+  @Output() deletePlaylist = new EventEmitter<number>();
+
+  constructor() { }
+
+  onEdit() {
+    this.editPlaylist.emit(this.playlistId);
+  }
+
+  onDelete() {
+    this.deletePlaylist.emit(this.playlistId);
+  }
 }

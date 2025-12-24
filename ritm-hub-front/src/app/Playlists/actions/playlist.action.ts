@@ -3,6 +3,7 @@ import { createAction, props } from '@ngrx/store';
 import { PlaylistDto } from '../Models/playlist.dto';
 import { UserDto } from '../../Users/models/user.dto';
 import { PlaylistSpotifyDto } from '../Models/playlist-spotify.dto';
+import { CreatePlaylistDto } from '../Components/playlist-form/playlist-form.component';
 
 export const getTrendingPlaylists = createAction(
     '[Trending Playlist] Get Trending Playlists',
@@ -21,7 +22,7 @@ export const getTrendingPlaylistsFailure = createAction(
 //Get Post by Id
 export const getPlaylistById = createAction(
     '[Playlist By Id] Get Playlist By Id',
-    props<{ playlistId: string }>(),
+    props<{ playlistId: number }>(),
 );
 
 export const getPlaylistByIdSuccess = createAction(
@@ -52,7 +53,7 @@ export const getUserPlaylistsFailure = createAction(
 //Create Playlist
 export const postCreateUserPlaylist = createAction(
     '[Create Playlist] Post Create User Playlist',
-    props<{ playlist: PlaylistDto }>(),
+    props<{ playlist: CreatePlaylistDto }>(),
 );
 
 export const postCreateUserPlaylistSuccess = createAction(
@@ -62,5 +63,21 @@ export const postCreateUserPlaylistSuccess = createAction(
 
 export const postCreateUserPlaylistFailure = createAction(
     '[Create Playlist] Post Create User Playlist Failure',
+    props<{ payload: HttpErrorResponse }>(),
+);
+
+//Delete Playlist
+export const deleteUserPlaylist = createAction(
+    '[Delete Playlist] Delete User Playlist',
+    props<{ playlistId: number }>(),
+);
+
+export const deleteUserPlaylistSuccess = createAction(
+    '[Delete Playlist] Delete User Playlist Success',
+    props<{ playlistId: number, message: string  }>(),
+);
+
+export const deleteUserPlaylistFailure = createAction(
+    '[Delete Playlist] Delete User Playlist Failure',
     props<{ payload: HttpErrorResponse }>(),
 );

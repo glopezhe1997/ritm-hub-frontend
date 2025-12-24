@@ -33,7 +33,7 @@ export class PlaylistFormComponent {
   name: FormControl;
   description: FormControl;
   images: FormControl;
-  public: FormControl;
+  is_public: FormControl;
 
   playlistForm: FormGroup;
   private playlistId: string | null = null;
@@ -53,7 +53,7 @@ export class PlaylistFormComponent {
     playlist_id: 0,
     name: '',
     description: null,
-    images: null,
+    images: [],
     owner_id: null,
     tracks: [],
     is_public: false,
@@ -72,13 +72,13 @@ export class PlaylistFormComponent {
     this.images = new FormControl(this.playlist.images, [
       Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))$/i)
     ]);
-    this.public = new FormControl( false );
+    this.is_public = new FormControl( false );
 
     this.playlistForm = this.formBuilder.group({
       name: this.name,
       description: this.description,
       images: this.images,
-      public: this.public,
+      is_public: this.is_public,
     });
 
     this.store.select('authState').subscribe((auth) => {
@@ -95,7 +95,7 @@ export class PlaylistFormComponent {
           name: this.playlist.name,
           description: this.playlist.description,
           images: this.playlist.images,
-          public: { public: this.playlist.is_public || false },
+          is_public: this.playlist.is_public,
         });
       }
     })
@@ -105,7 +105,7 @@ export class PlaylistFormComponent {
     if (this.playlistId) {
       this.isUpdateMode = true;
       this.store.dispatch(
-        PlaylistActions.getPlaylistById({ playlistId: this.playlistId })
+        PlaylistActions.getPlaylistById({ playlistId: Number(this.playlistId) })
       );
     } else {
       this.playlistForm.reset();
@@ -114,17 +114,18 @@ export class PlaylistFormComponent {
 
   private createPlaylist() {
     if (this.userId) {
+      const playlistToSend = {
+        name: this.playlistForm.value.name,
+        description: this.playlistForm.value.description,
+        images: this.imagesToArray(this.playlistForm.value.images),
+        is_public: this.playlistForm.value.is_public ?? false,
+      } as CreatePlaylistDto;
+
+      console.log('Creando playlist, datos enviados al backend:', playlistToSend);
+
       this.store.dispatch(
         PlaylistActions.postCreateUserPlaylist({
-          playlist: {
-            playlist_id: 0, // <-- se asigna en el backend
-            name: this.playlistForm.value.name,
-            description: this.playlistForm.value.description,
-            images: this.playlistForm.value.images,
-            is_public: this.playlistForm.value.public,
-            tracks: [],
-            owner_id: this.userId,
-          } as PlaylistDto,
+          playlist: playlistToSend
         })
       );
     }
@@ -132,20 +133,33 @@ export class PlaylistFormComponent {
 
   private editPlaylist() {
     if (this.playlistId) {
+      const playlistToSend = {
+        playlist_id: parseInt(this.playlistId),
+        name: this.playlistForm.value.name,
+        description: this.playlistForm.value.description,
+        images: this.imagesToArray(this.playlistForm.value.images),
+        is_public: this.playlistForm.value.is_public ?? false,
+        tracks: this.playlist.tracks,
+        owner_id: this.userId,
+      } as CreatePlaylistDto;
+
+      console.log('Editando playlist, datos enviados al backend:', playlistToSend);
+
       this.store.dispatch(
-        PlaylistActions.postCreateUserPlaylist({ // Cambiar por updatePlaylist cuando lo crees
-          playlist: {
-            playlist_id: parseInt(this.playlistId), // <-- convierte a number
-            name: this.playlistForm.value.name,
-            description: this.playlistForm.value.description,
-            images: this.playlistForm.value.images,
-            is_public: this.playlistForm.value.public,
-            tracks: this.playlist.tracks,
-            owner_id: this.userId,
-          } as PlaylistDto,
+        PlaylistActions.postCreateUserPlaylist({
+          playlist: playlistToSend
         })
       );
     }
+  }
+
+  // Añade este método auxiliar:
+  private imagesToArray(imagesField: string | string[]): string[] {
+    if (Array.isArray(imagesField)) return imagesField;
+    if (typeof imagesField === 'string' && imagesField.trim() !== '') {
+      return imagesField.split(',').map(img => img.trim());
+    }
+    return [];
   }
 
   savePlaylist() {

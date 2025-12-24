@@ -5,6 +5,7 @@ import { PlaylistDto } from '../Models/playlist.dto';
 import { environment } from '../../../environments/environment';
 import { UserDto } from '../../Users/models/user.dto';
 import { PlaylistSpotifyDto } from '../Models/playlist-spotify.dto';
+import { CreatePlaylistsDto } from '../Models/create-playlists.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,19 +28,26 @@ export class PlaylistsService {
 
   getUserPlaylists(): Observable<PlaylistDto[]> {
     const token = localStorage.getItem('access_token');
-    return this.http.get<PlaylistDto[]>(`${this.url}/private`, {
+    return this.http.get<PlaylistDto[]>(`${this.url}/user`, {
       headers: { Authorization: `Bearer ${token}` }
     });
   }
 
-  postCreateUserPlaylist(playlist: PlaylistDto): Observable<PlaylistDto> {
+  postCreateUserPlaylist(playlist: CreatePlaylistsDto): Observable<PlaylistDto> {
     const token = localStorage.getItem('access_token');
     return this.http.post<PlaylistDto>(
       `${this.url}/create`,
-      { name: playlist.name },
+      playlist,
       {
         headers: { Authorization: `Bearer ${token}` }
       }
     );
+  }
+
+  deleteUserPlaylist(id: number): Observable<string> {
+    const token = localStorage.getItem('access_token');
+    return this.http.delete<string>(`${this.url}/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
   }
 }

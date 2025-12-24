@@ -7,7 +7,7 @@ import { AppState } from '../../../app.reducer';
 import { CommonModule } from '@angular/common';
 import { PlaylistItemComponent } from "../playlist-item/playlist-item.component";
 import * as PlaylistActions from '../../actions/playlist.action';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-playlist-list',
@@ -20,7 +20,8 @@ export class PlaylistListComponent implements OnInit {
   playlists: PlaylistDto[] = [];
   constructor(
     private playlistsService: PlaylistsService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.store.select(state => state.playlistState.playlists).subscribe((playlists: PlaylistDto[]) => {
       this.playlists = playlists;
@@ -30,5 +31,15 @@ export class PlaylistListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(PlaylistActions.getUserPlaylists());
+  }
+
+  navigateToEdit(playlistId: number | undefined) {
+    this.router.navigate([`/playlists/edit/${playlistId}`]);
+  }
+
+  onDeletePlaylist(playlistId: number | undefined) {
+    if (playlistId !== undefined) {
+      this.store.dispatch(PlaylistActions.deleteUserPlaylist({ playlistId }));
+    }
   }
 }
