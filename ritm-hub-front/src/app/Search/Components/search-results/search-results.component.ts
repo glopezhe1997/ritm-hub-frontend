@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../../Services/Spotify/spotify.service';
 import { CommonModule } from '@angular/common';
+import { TimeConversionPipe } from '../../../Shared/Pipes/time-conversion.pipe';
 
 interface SearchResultDto {
   artists: any;
@@ -13,7 +14,7 @@ interface SearchResultDto {
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TimeConversionPipe],
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.css'
 })

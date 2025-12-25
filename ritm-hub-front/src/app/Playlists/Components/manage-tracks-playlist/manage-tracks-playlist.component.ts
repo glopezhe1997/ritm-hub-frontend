@@ -8,10 +8,11 @@ import { SearchBarComponent } from "../../../Search/Components/search-bar/search
 import { AppState } from '../../../app.reducer';
 import { Store } from '@ngrx/store';
 import * as PlaylistActions from '../../actions/playlist.action';
+import { TimeConversionPipe } from '../../../Shared/Pipes/time-conversion.pipe';
 @Component({
   selector: 'app-manage-tracks-playlist',
   standalone: true,
-  imports: [CommonModule, SearchBarComponent],
+  imports: [CommonModule, SearchBarComponent, TimeConversionPipe],
   templateUrl: './manage-tracks-playlist.component.html',
   styleUrl: './manage-tracks-playlist.component.css'
 })

@@ -14,7 +14,7 @@
         class="w-10 h-10 object-cover rounded"
       />
       <span class="flex-1 text-gray-200">{{ track.name }}</span>
-      <span class="text-xs text-gray-400">{{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}</span>
+      <span class="text-xs text-gray-400">{{ track.duration_ms | timeConversion }}</span>
       <button
         class="ml-2 px-2 py-1 bg-[#9810FA] text-white rounded hover:bg-[#7a0fc2] transition"
         (click)="addTrackToPlaylist(track)"

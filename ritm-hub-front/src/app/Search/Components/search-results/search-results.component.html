@@ -115,7 +115,7 @@
             </div>
           </div>
           <span class="text-gray-300 text-sm">
-            {{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}
+            {{ track.duration_ms | timeConversion }}
           </span>
         </div>
       </div>
