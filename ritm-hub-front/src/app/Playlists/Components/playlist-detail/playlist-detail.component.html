@@ -20,6 +20,12 @@
       >
         {{ playlist?.is_public ? 'Public' : 'Private' }}
       </span>
+      <app-share-button 
+        [item]="'playlist'"
+        [isPublic]="playlist?.is_public"
+        [playlistId]="playlist?.playlist_id"
+      >
+      </app-share-button>
     </div>
     <app-manage-tracks-playlist 
       [playlist]="playlist"

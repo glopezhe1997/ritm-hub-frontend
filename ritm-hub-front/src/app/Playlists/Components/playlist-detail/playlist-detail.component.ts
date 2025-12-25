@@ -9,11 +9,15 @@ import { selectPlaylistById } from '../../selectors/playlist.selectors';
 import { DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ManageTracksPlaylistComponent } from "../manage-tracks-playlist/manage-tracks-playlist.component";
+import { ShareButtonComponent } from '../../../Shared/Components/share-button/share-button.component';
 
 @Component({
   selector: 'app-playlist-detail',
   standalone: true,
-  imports: [CommonModule, ManageTracksPlaylistComponent],
+  imports: [CommonModule, 
+    ManageTracksPlaylistComponent,
+    ShareButtonComponent,
+  ],
   templateUrl: './playlist-detail.component.html',
   styleUrl: './playlist-detail.component.css'
 })
