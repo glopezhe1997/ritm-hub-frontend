@@ -81,3 +81,35 @@ export const deleteUserPlaylistFailure = createAction(
     '[Delete Playlist] Delete User Playlist Failure',
     props<{ payload: HttpErrorResponse }>(),
 );
+
+//Add track to playlist
+export const addTrackToPlaylist = createAction(
+  '[Playlist] Add Track To Playlist',
+  props<{ playlistId: number, trackExternalId: string | undefined | null }>(),
+);
+
+export const addTrackToPlaylistSuccess = createAction(
+  '[Playlist] Add Track To Playlist Success',
+  props<{ playlist: PlaylistDto }>(),
+);
+
+export const addTrackToPlaylistFailure = createAction(
+  '[Playlist] Add Track To Playlist Failure',
+  props<{ payload: HttpErrorResponse }>(),
+);
+
+//Remove track from playlist
+export const removeTrackFromPlaylist = createAction(
+  '[Playlist] Remove Track From Playlist',
+  props<{ playlistId: number, trackId: number }>(),
+);
+
+export const removeTrackFromPlaylistSuccess = createAction(
+  '[Playlist] Remove Track From Playlist Success',
+  props<{ playlist: PlaylistDto }>(),
+);
+
+export const removeTrackFromPlaylistFailure = createAction(
+  '[Playlist] Remove Track From Playlist Failure',
+  props<{ payload: HttpErrorResponse }>(),
+);

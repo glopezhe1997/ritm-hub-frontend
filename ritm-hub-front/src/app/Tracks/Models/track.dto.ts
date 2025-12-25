@@ -1,5 +1,5 @@
 export interface TrackDto {
-  id: string;
+  id: number;
   name: string;
   album: {
     name: string;
@@ -9,4 +9,5 @@ export interface TrackDto {
   duration_ms: number;
   popularity?: number;
   preview_url?: string | null;
+  external_id?: string | null;
 }

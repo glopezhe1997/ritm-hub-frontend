@@ -50,4 +50,27 @@ export class PlaylistsService {
       headers: { Authorization: `Bearer ${token}` }
     });
   }
+
+  //Add Tracks to Playlist
+  addTracksToPlaylist(id: number, trackExternalId: string | undefined | null): Observable<PlaylistDto> {
+    const token = localStorage.getItem('access_token');
+    return this.http.patch<PlaylistDto>(
+      `${this.url}/${id}/tracks`,
+      { trackExternalId },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
+
+  //Remove Tracks from Playlist
+  removeTrackFromPlaylist(playlistId: number, trackId: number): Observable<PlaylistDto> {
+    const token = localStorage.getItem('access_token');
+    return this.http.delete<PlaylistDto>(
+      `${this.url}/${playlistId}/tracks/${trackId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
 }

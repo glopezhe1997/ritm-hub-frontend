@@ -71,6 +71,32 @@ export class PlaylistEffects {
     )
   );
 
+  //Add Track to Playlist
+  addTrackToPlaylist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.addTrackToPlaylist),
+      switchMap(action =>
+        this.playlistsService.addTracksToPlaylist(action.playlistId, action.trackExternalId).pipe(
+          map(playlist => PlaylistActions.addTrackToPlaylistSuccess({ playlist })),
+          catchError(error => of(PlaylistActions.addTrackToPlaylistFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
+  //Remove Track from Playlist
+  removeTrackFromPlaylist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.removeTrackFromPlaylist),
+      switchMap(action =>
+        this.playlistsService.removeTrackFromPlaylist(action.playlistId, action.trackId).pipe(
+          map(playlist => PlaylistActions.removeTrackFromPlaylistSuccess({ playlist })),
+          catchError(error => of(PlaylistActions.removeTrackFromPlaylistFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private playlistsService: PlaylistsService

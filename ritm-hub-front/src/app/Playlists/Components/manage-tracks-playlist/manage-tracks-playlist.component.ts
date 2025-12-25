@@ -5,7 +5,9 @@ import { TracksService } from '../../../Tracks/services/tracks.service';
 import { PlaylistsService } from '../../services/playlists.service';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from "../../../Search/Components/search-bar/search-bar.component";
-
+import { AppState } from '../../../app.reducer';
+import { Store } from '@ngrx/store';
+import * as PlaylistActions from '../../actions/playlist.action';
 @Component({
   selector: 'app-manage-tracks-playlist',
   standalone: true,
@@ -19,7 +21,8 @@ export class ManageTracksPlaylistComponent {
 
   constructor(
     private tracksService: TracksService,
-    private playlistService: PlaylistsService
+    private playlistService: PlaylistsService,
+    private store: Store<AppState>
   ) {}
 
   onSearchTracks(query: string) {
@@ -29,19 +32,21 @@ export class ManageTracksPlaylistComponent {
     });
   }
 
-  // addTrackToPlaylist(track: TrackDto) {
-  //   if (!this.playlist) return;
-  //   this.playlistService.addTrackToPlaylist(this.playlist.playlist_id, track.external_id)
-  //     .subscribe(() => {
-  //       // Aquí podrías recargar la playlist o actualizar el store
-  //     });
-  // }
+  addTrackToPlaylist(track: TrackDto) {
+    if (!this.playlist) return;
+    console.log('Añadiendo track:', track);
+    this.store.dispatch(PlaylistActions.addTrackToPlaylist({
+      playlistId: this.playlist.playlist_id,
+      trackExternalId: track.id.toString()
+    }));
+  }
 
-  // removeTrackFromPlaylist(track: TrackDto) {
-  //   if (!this.playlist) return;
-  //   this.playlistService.removeTrackFromPlaylist(this.playlist.playlist_id, track.id)
-  //     .subscribe(() => {
-  //       // Aquí podrías recargar la playlist o actualizar el store
-  //     });
-  // }
+  removeTrackFromPlaylist(track: TrackDto) {
+    if (!this.playlist) return;
+    console.log('Eliminando track:', track);
+    this.store.dispatch(PlaylistActions.removeTrackFromPlaylist({
+      playlistId: this.playlist.playlist_id,
+      trackId: track.id
+    }));
+  }
 }
