@@ -7,6 +7,7 @@ export interface PlaylistState {
   playlists: PlaylistDto[]; // Playlists del usuario
   trendingPlaylists: PlaylistSpotifyDto[]; // Playlists de Spotify
   playlist: PlaylistDto | null;
+  sharedPlalistsWithMe: PlaylistDto[]; // Playlists compartidas conmigo
   loading: boolean;
   error: any;
 }
@@ -15,6 +16,7 @@ export const initialState: PlaylistState = {
   playlists: [],
   trendingPlaylists: [],
   playlist: null,
+  sharedPlalistsWithMe: [],
   loading: false,
   error: null
 };
@@ -140,5 +142,7 @@ export const playlistsReducer = createReducer(
     ...state,
     loading: false,
     error: payload
-  }))
+  })),
+  //Share Playlist with User
+ 
 );

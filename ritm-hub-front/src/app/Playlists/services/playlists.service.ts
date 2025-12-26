@@ -6,13 +6,14 @@ import { environment } from '../../../environments/environment';
 import { UserDto } from '../../Users/models/user.dto';
 import { PlaylistSpotifyDto } from '../Models/playlist-spotify.dto';
 import { CreatePlaylistsDto } from '../Models/create-playlists.dto';
+import { SharedPlaylistsResultDto } from '../Models/shared-playlists-result.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistsService {
   private url = `${environment.apiUrl}/playlists`;
-
+  private sharePlaylistUrl = `${environment.apiUrl}/share-playlists`;
   constructor(private http: HttpClient) { }
 
   getTrendingPlaylists(): Observable<PlaylistSpotifyDto[]> {
@@ -68,6 +69,21 @@ export class PlaylistsService {
     const token = localStorage.getItem('access_token');
     return this.http.delete<PlaylistDto>(
       `${this.url}/${playlistId}/tracks/${trackId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
+
+  //Share Playlist with User
+  sharePlaylistWithUser(
+    playlistId: number, 
+    shareWithUserId: number
+  ): Observable<SharedPlaylistsResultDto> {
+    const token = localStorage.getItem('access_token');
+    return this.http.post<SharedPlaylistsResultDto>(
+      `${this.sharePlaylistUrl}/${shareWithUserId}/playlists`,
+      { playlist_id: playlistId, shared_with_user_id: shareWithUserId },
       {
         headers: { Authorization: `Bearer ${token}` }
       }
