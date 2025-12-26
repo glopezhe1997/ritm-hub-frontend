@@ -10,3 +10,20 @@
     >Copied!</span
   >
 </button>
+
+<div *ngIf="showUserInput" class="mt-2 bg-gray-800 p-4 rounded shadow">
+  <input
+    type="text"
+    [(ngModel)]="userQuery"
+    (input)="searchUsers()"
+    placeholder="Search by username or email"
+    class="px-2 py-1 rounded w-full mb-2"
+  />
+  <ul>
+    <li *ngFor="let user of users">
+      <button (click)="selectUser(user.id)" class="text-[#9810FA] hover:underline">
+        {{ user.username }} ({{ user.email }})
+      </button>
+    </li>
+  </ul>
+</div>

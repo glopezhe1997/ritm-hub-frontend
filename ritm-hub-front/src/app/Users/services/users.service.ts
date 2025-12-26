@@ -16,4 +16,15 @@ export class UsersService {
   registerUser(user: CreateUserDto): Observable<UserDto> {
     return this.http.post<UserDto>( this.url, user);
   }
+
+  // Search users by username or email
+  searchUsers(query: string): Observable<UserDto[]> {
+    const token = localStorage.getItem('access_token');
+    return this.http.get<UserDto[]>(`${this.url}/search`, 
+      { 
+        params: { q: query },
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
 }
