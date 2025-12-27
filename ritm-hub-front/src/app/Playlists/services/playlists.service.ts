@@ -89,4 +89,15 @@ export class PlaylistsService {
       }
     );
   }
+
+  //Get Playlists Shared with Me
+  getPlaylistsSharedWithMe(): Observable<PlaylistDto[]> {
+    const token = localStorage.getItem('access_token');
+    return this.http.get<PlaylistDto[]>(
+      `${this.sharePlaylistUrl}/received`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
 }

@@ -17,6 +17,8 @@ import { Router, RouterLink } from "@angular/router";
 })
 export class PlaylistListComponent implements OnInit {
   playlists: PlaylistDto[] = [];
+  sharedPlaylists: PlaylistDto[] = [];
+
   constructor(
     private store: Store<AppState>,
     private router: Router
@@ -25,10 +27,16 @@ export class PlaylistListComponent implements OnInit {
       this.playlists = playlists;
       console.log('Playlists actualizadas:', this.playlists); // <-- aquí
     });
+
+    this.store.select(state => state.playlistState.sharedPlalistsWithMe).subscribe((sharedPlaylists: PlaylistDto[]) => {
+      this.sharedPlaylists = sharedPlaylists;
+      console.log('Playlists compartidas actualizadas:', this.sharedPlaylists); // <-- aquí
+    });
   }
 
   ngOnInit(): void {
     this.store.dispatch(PlaylistActions.getUserPlaylists());
+    this.store.dispatch(PlaylistActions.getPlaylistsSharedWithMe());
   }
 
   navigateToEdit(playlistId: number | undefined) {

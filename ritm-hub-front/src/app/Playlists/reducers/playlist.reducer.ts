@@ -143,6 +143,23 @@ export const playlistsReducer = createReducer(
     loading: false,
     error: payload
   })),
-  //Share Playlist with User
+  //Get Shared Playlists with Me
+  on(PlaylistActions.getPlaylistsSharedWithMe, (state) => ({
+    ...state,
+    loading: true,
+    sharedPlalistsWithMe: [],
+    error: null
+  })),
+  on(PlaylistActions.getPlaylistsSharedWithMeSuccess, (state, { sharedPlaylists }) => ({
+    ...state,
+    sharedPlalistsWithMe: sharedPlaylists,
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.getPlaylistsSharedWithMeFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  }))
  
 );

@@ -115,18 +115,17 @@ export const removeTrackFromPlaylistFailure = createAction(
   props<{ payload: HttpErrorResponse }>(),
 );
 
-//Share Playlist with User
-export const sharePlaylistWithUser = createAction(
-  '[Playlist] Share Playlist With User',
-  props<{ playlistId: number, shareWithUserId: number }>(),
+// Get Shared Playlists with Me
+export const getPlaylistsSharedWithMe = createAction(
+  '[Shared Playlists] Get Playlists Shared With Me',
 );
 
-export const sharePlaylistWithUserSuccess = createAction(
-  '[Playlist] Share Playlist With User Success',
-  props<{ sharedPlaylistResult: SharedPlaylistsResultDto }>(),
+export const getPlaylistsSharedWithMeSuccess = createAction(
+  '[Shared Playlists] Get Playlists Shared With Me Success',
+  props<{ sharedPlaylists: PlaylistDto[] }>(),
 );
 
-export const sharePlaylistWithUserFailure = createAction(
-  '[Playlist] Share Playlist With User Failure',
+export const getPlaylistsSharedWithMeFailure = createAction(
+  '[Shared Playlists] Get Playlists Shared With Me Failure',
   props<{ payload: HttpErrorResponse }>(),
 );

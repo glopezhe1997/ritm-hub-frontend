@@ -53,7 +53,7 @@ export class AuthEffects {
       ofType(logout),
       tap(() => {
         localStorage.removeItem('access_token');
-        this.router.navigate(['/Home']);
+        this.router.navigate(['/home']);
       })
     ),
   { dispatch: false }

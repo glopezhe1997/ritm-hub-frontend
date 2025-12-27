@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { PlaylistsService } from '../services/playlists.service';
 import * as PlaylistActions from '../actions/playlist.action';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class PlaylistEffects {
@@ -42,6 +43,17 @@ export class PlaylistEffects {
         )
       )
     )
+  );
+
+  postCreateUserPlaylistRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.postCreateUserPlaylistSuccess),
+        tap(() => {
+          this.router.navigate(['/playlists']);
+        })
+      ),
+    { dispatch: false }
   );
 
   getPlaylistById$ = createEffect(() =>
@@ -97,8 +109,22 @@ export class PlaylistEffects {
     )
   );
 
+  //Get Playlists Shared With Me
+  getPlaylistsSharedWIthMe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.getPlaylistsSharedWithMe),
+      switchMap(() =>
+        this.playlistsService.getPlaylistsSharedWithMe().pipe(
+          map(sharedPlaylists => PlaylistActions.getPlaylistsSharedWithMeSuccess({ sharedPlaylists })),
+          catchError(error => of(PlaylistActions.getPlaylistsSharedWithMeFailure({ payload: error })))
+        )
+      )
+    )
+  );    
+
   constructor(
     private actions$: Actions,
-    private playlistsService: PlaylistsService
+    private playlistsService: PlaylistsService,
+    private router: Router,
   ) {}
 }
