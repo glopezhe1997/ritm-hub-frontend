@@ -13,6 +13,7 @@ import { AppState } from '../../../app.reducer';
 import * as PlaylistActions from '../../actions/playlist.action';
 import { PlaylistDto } from '../../Models/playlist.dto';
 import { CommonModule } from '@angular/common';
+import { UpdatePlaylistDto } from '../../Models/update-playlist.dto';
 
 export interface CreatePlaylistDto {
   name: string;
@@ -114,12 +115,12 @@ export class PlaylistFormComponent {
 
   private createPlaylist() {
     if (this.userId) {
-      const playlistToSend = {
+      const playlistToSend: CreatePlaylistDto = {
         name: this.playlistForm.value.name,
         description: this.playlistForm.value.description,
         images: this.imagesToArray(this.playlistForm.value.images),
         is_public: this.playlistForm.value.is_public ?? false,
-      } as CreatePlaylistDto;
+      };
 
       console.log('Creando playlist, datos enviados al backend:', playlistToSend);
 
@@ -133,21 +134,19 @@ export class PlaylistFormComponent {
 
   private editPlaylist() {
     if (this.playlistId) {
-      const playlistToSend = {
-        playlist_id: parseInt(this.playlistId),
+      const playlistToSend: UpdatePlaylistDto = {
         name: this.playlistForm.value.name,
         description: this.playlistForm.value.description,
         images: this.imagesToArray(this.playlistForm.value.images),
         is_public: this.playlistForm.value.is_public ?? false,
-        tracks: this.playlist.tracks,
-        owner_id: this.userId,
-      } as CreatePlaylistDto;
+      };
 
       console.log('Editando playlist, datos enviados al backend:', playlistToSend);
 
       this.store.dispatch(
-        PlaylistActions.postCreateUserPlaylist({
-          playlist: playlistToSend
+        PlaylistActions.updateUserPlaylist({
+          playlistId: parseInt(this.playlistId),
+          updateData: playlistToSend
         })
       );
     }

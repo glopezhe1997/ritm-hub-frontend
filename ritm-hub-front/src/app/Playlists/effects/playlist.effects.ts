@@ -55,6 +55,31 @@ export class PlaylistEffects {
       ),
     { dispatch: false }
   );
+  
+  //Update Playlist
+  updateUserPlaylist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.updateUserPlaylist),
+      switchMap(action =>
+        this.playlistsService.updateUserPlaylist(action.playlistId, action.updateData).pipe(
+          map(playlist => PlaylistActions.updateUserPlaylistSuccess({ playlist })),
+          catchError(error => of(PlaylistActions.updateUserPlaylistFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
+  //Redirect after update
+  updateUserPlaylistRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.updateUserPlaylistSuccess),
+        tap(() => {
+          this.router.navigate(['/playlists']);
+        })
+      ),
+    { dispatch: false }
+  );
 
   getPlaylistById$ = createEffect(() =>
     this.actions$.pipe(

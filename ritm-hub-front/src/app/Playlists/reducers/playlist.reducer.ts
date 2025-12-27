@@ -74,6 +74,24 @@ export const playlistsReducer = createReducer(
     loading: false,
     error: payload
   })),
+  //Update Playlist
+  on(PlaylistActions.updateUserPlaylist, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PlaylistActions.updateUserPlaylistSuccess, (state, { playlist }) => ({
+    ...state,
+    playlists: state.playlists.map(p => p.playlist_id === playlist.playlist_id ? playlist : p),
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.updateUserPlaylistFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  })),
+  //Get Playlist by Id
   on(PlaylistActions.getPlaylistById, (state) => ({
     ...state,
     loading: true,

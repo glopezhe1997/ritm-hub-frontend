@@ -5,6 +5,7 @@ import { UserDto } from '../../Users/models/user.dto';
 import { PlaylistSpotifyDto } from '../Models/playlist-spotify.dto';
 import { CreatePlaylistDto } from '../Components/playlist-form/playlist-form.component';
 import { SharedPlaylistsResultDto } from '../Models/shared-playlists-result.dto';
+import { UpdatePlaylistDto } from '../Models/update-playlist.dto';
 
 export const getTrendingPlaylists = createAction(
     '[Trending Playlist] Get Trending Playlists',
@@ -64,6 +65,22 @@ export const postCreateUserPlaylistSuccess = createAction(
 
 export const postCreateUserPlaylistFailure = createAction(
     '[Create Playlist] Post Create User Playlist Failure',
+    props<{ payload: HttpErrorResponse }>(),
+);
+
+//Update Playlist
+export const updateUserPlaylist = createAction(
+    '[Update Playlist] Update User Playlist',
+    props<{ playlistId: number, updateData: UpdatePlaylistDto }>(),
+);
+
+export const updateUserPlaylistSuccess = createAction(
+    '[Update Playlist] Update User Playlist Success',
+    props<{ playlist: PlaylistDto }>(),
+);
+
+export const updateUserPlaylistFailure = createAction(
+    '[Update Playlist] Update User Playlist Failure',
     props<{ payload: HttpErrorResponse }>(),
 );
 
