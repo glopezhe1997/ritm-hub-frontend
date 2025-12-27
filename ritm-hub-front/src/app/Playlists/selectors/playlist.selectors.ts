@@ -9,3 +9,8 @@ export const selectPlaylistById = (playlistId: number) =>
     selectPlaylistState,
     (state) => state.playlists.find(p => p.playlist_id === playlistId)
   );
+
+export const selectSharedPlaylistWithMe = createSelector(
+  selectPlaylistState,
+  (state) => state.sharedPlaylistWithMe
+);

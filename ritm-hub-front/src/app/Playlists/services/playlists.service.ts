@@ -115,4 +115,15 @@ export class PlaylistsService {
       }
     );
   }
+
+  //Get Shared User playlist by ID
+  getSharedPlaylistById(id: number): Observable<PlaylistDto> {
+    const token = localStorage.getItem('access_token');
+    return this.http.get<PlaylistDto>(
+      `${this.sharePlaylistUrl}/playlists/${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+  }
 }

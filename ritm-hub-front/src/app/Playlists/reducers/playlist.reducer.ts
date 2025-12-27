@@ -7,7 +7,8 @@ export interface PlaylistState {
   playlists: PlaylistDto[]; // Playlists del usuario
   trendingPlaylists: PlaylistSpotifyDto[]; // Playlists de Spotify
   playlist: PlaylistDto | null;
-  sharedPlalistsWithMe: PlaylistDto[]; // Playlists compartidas conmigo
+  sharedPlaylistsWithMe: PlaylistDto[]; // Playlists compartidas conmigo
+  sharedPlaylistWithMe: PlaylistDto | null;
   loading: boolean;
   error: any;
 }
@@ -16,7 +17,8 @@ export const initialState: PlaylistState = {
   playlists: [],
   trendingPlaylists: [],
   playlist: null,
-  sharedPlalistsWithMe: [],
+  sharedPlaylistsWithMe: [],
+  sharedPlaylistWithMe: null,
   loading: false,
   error: null
 };
@@ -165,12 +167,12 @@ export const playlistsReducer = createReducer(
   on(PlaylistActions.getPlaylistsSharedWithMe, (state) => ({
     ...state,
     loading: true,
-    sharedPlalistsWithMe: [],
+    sharedPlaylistsWithMe: [],
     error: null
   })),
   on(PlaylistActions.getPlaylistsSharedWithMeSuccess, (state, { sharedPlaylists }) => ({
     ...state,
-    sharedPlalistsWithMe: sharedPlaylists,
+    sharedPlaylistsWithMe: sharedPlaylists,
     loading: false,
     error: null
   })),
@@ -178,6 +180,23 @@ export const playlistsReducer = createReducer(
     ...state,
     loading: false,
     error: payload
-  }))
- 
+  })),
+  //Get Shared Playlist by Id
+  on(PlaylistActions.getSharedPlaylistById, (state) => ({
+    ...state,
+    loading: true,
+    sharedPlaylistWithMe: null,
+    error: null
+  })),
+  on(PlaylistActions.getSharedPlaylistByIdSuccess, (state, { playlist }) => ({
+    ...state,
+    sharedPlaylistWithMe: playlist,
+    loading: false,
+    error: null
+  })),
+  on(PlaylistActions.getSharedPlaylistByIdFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  })), 
 );

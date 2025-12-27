@@ -146,3 +146,19 @@ export const getPlaylistsSharedWithMeFailure = createAction(
   '[Shared Playlists] Get Playlists Shared With Me Failure',
   props<{ payload: HttpErrorResponse }>(),
 );
+
+// Get Shared Playlist by Id
+export const getSharedPlaylistById = createAction(
+  '[Shared Playlist By Id] Get Shared Playlist By Id',
+  props<{ playlistId: number }>(),
+);
+
+export const getSharedPlaylistByIdSuccess = createAction(
+  '[Shared Playlist By Id] Get Shared Playlist By Id Success',
+  props<{ playlist: PlaylistDto }>(),
+);
+
+export const getSharedPlaylistByIdFailure = createAction(
+  '[Shared Playlist By Id] Get Shared Playlist By Id Failure',
+  props<{ payload: HttpErrorResponse }>(),
+);

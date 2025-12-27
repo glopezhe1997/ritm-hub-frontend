@@ -28,7 +28,7 @@ export class PlaylistListComponent implements OnInit {
       console.log('Playlists actualizadas:', this.playlists); // <-- aquí
     });
 
-    this.store.select(state => state.playlistState.sharedPlalistsWithMe).subscribe((sharedPlaylists: PlaylistDto[]) => {
+    this.store.select(state => state.playlistState.sharedPlaylistsWithMe).subscribe((sharedPlaylists: PlaylistDto[]) => {
       this.sharedPlaylists = sharedPlaylists;
       console.log('Playlists compartidas actualizadas:', this.sharedPlaylists); // <-- aquí
     });

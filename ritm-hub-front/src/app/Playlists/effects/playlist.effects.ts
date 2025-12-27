@@ -147,6 +147,19 @@ export class PlaylistEffects {
     )
   );    
 
+  //Get Shared Playlist By Id
+  getSharedPlaylistById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistActions.getSharedPlaylistById),
+      switchMap(action =>
+        this.playlistsService.getSharedPlaylistById(action.playlistId).pipe(
+          map(playlist => PlaylistActions.getSharedPlaylistByIdSuccess({ playlist })),
+          catchError(error => of(PlaylistActions.getSharedPlaylistByIdFailure({ payload: error })))
+        )
+      )
+    )
+  );
+  
   constructor(
     private actions$: Actions,
     private playlistsService: PlaylistsService,
