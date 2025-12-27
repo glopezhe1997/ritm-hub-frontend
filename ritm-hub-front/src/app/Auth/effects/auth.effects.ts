@@ -22,7 +22,7 @@ export class AuthEffects {
               id: payload.sub || payload.id || payload.userId,
               username: payload.username || payload.name || '',
               email: payload.email || '',
-              role: payload.role || 'user',
+              role: payload.role,
               Birthdate: payload.birthdate || '', 
               name: payload.fullname || '',
               createdAt: payload.createdAt || '',

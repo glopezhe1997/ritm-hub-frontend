@@ -1,50 +1,30 @@
 <nav>
-    <ul class="flex flex-row justify-around items-center gap-5">
-        <ng-container *ngIf="isAuthenticated$ | async; else guestMenu">
-            <ng-container *ngFor="let item of menuItems">
-                <li *ngIf="shouldShowItem(item, true)">
-                    <a 
-                        *ngIf="!item.isLogout"
-                        [routerLink]="item.route" 
-                        class="inline-flex items-center gap-2 text-[#9810fa] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
-                    >
-                        <img 
-                            *ngIf="item.icon" 
-                            [src]="'assets/icons/' + item.icon" 
-                            [alt]="item.label" 
-                            class="w-6 h-6 brightness-0 invert"
-                        >
-                        <span *ngIf="item.showLabel">{{ item.label }}</span>
-                    </a>
-
-                    <a 
-                        *ngIf="item.isLogout"
-                        (click)="onLogout()"
-                        class="inline-flex items-center gap-2 text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100 cursor-pointer"
-                    >
-                        <span *ngIf="item.showLabel">{{ item.label }}</span>
-                    </a>
-                </li>
-            </ng-container>
-        </ng-container>
-
-        <ng-template #guestMenu>
-            <ng-container *ngFor="let item of menuItems">
-                <li *ngIf="shouldShowItem(item, false)">
-                    <a 
-                        [routerLink]="item.route" 
-                        class="inline-flex items-center gap-2 text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
-                    >
-                        <img 
-                            *ngIf="item.icon" 
-                            [src]="'assets/icons/' + item.icon" 
-                            [alt]="item.label" 
-                            class="w-6 h-6 brightness-0 invert"
-                        >
-                        <span *ngIf="item.showLabel">{{ item.label }}</span>
-                    </a>
-                </li>
-            </ng-container>
-        </ng-template>
-    </ul>
+  <ul class="flex flex-row justify-around items-center gap-5">
+    <ng-container *ngIf="menuState$ | async as state">
+      <ng-container *ngFor="let item of menuItems">
+        <li *ngIf="shouldShowItem(item, state.isAuth, state.isAdmin)">
+          <a 
+            *ngIf="!item.isLogout"
+            [routerLink]="item.route" 
+            class="inline-flex items-center gap-2 text-[#9810fa] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
+          >
+            <img 
+              *ngIf="item.icon" 
+              [src]="'assets/icons/' + item.icon" 
+              [alt]="item.label" 
+              class="w-6 h-6 brightness-0 invert"
+            >
+            <span *ngIf="item.showLabel">{{ item.label }}</span>
+          </a>
+          <a 
+            *ngIf="item.isLogout"
+            (click)="onLogout()"
+            class="inline-flex items-center gap-2 text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100 cursor-pointer"
+          >
+            <span *ngIf="item.showLabel">{{ item.label }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ng-container>
+  </ul>
 </nav>

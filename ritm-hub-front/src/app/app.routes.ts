@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './Shared/Guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,5 +34,14 @@ export const routes: Routes = [
   {
     path: 'playlists/edit/:id',
     loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent)
+  },
+  {
+    path: 'admin',
+    loadComponent: () => import('./Admin/Components/admin-page/admin-page.component').then(m => m.AdminPageComponent),
+    canActivate: [adminGuard]
+  },
+  {
+    path: 'forbidden',
+    loadComponent: () => import('./Shared/Components/forbidden-page/forbidden-page.component').then(m => m.ForbiddenPageComponent)
   }
 ];
