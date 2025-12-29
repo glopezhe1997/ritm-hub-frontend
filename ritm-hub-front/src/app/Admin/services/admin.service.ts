@@ -54,4 +54,12 @@ export class AdminService {
       `${this.url}/users/unblock/${userId}`, {}, { headers: { Authorization: `Bearer ${token}` } }
     );
   }
+
+  // Change user role
+    changeUserRole(userId: number, role: string): Observable<{ message: string, user: UserDto | null }> {
+    const token = localStorage.getItem('access_token');
+    return this.http.patch<{ message: string, user: UserDto | null }>(
+      `${this.url}/users/role/${userId}/${role}`, {}, { headers: { Authorization: `Bearer ${token}` } }
+    );
+  }
 }

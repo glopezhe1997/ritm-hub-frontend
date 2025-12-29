@@ -184,4 +184,13 @@ export class AdminPageComponent implements OnInit {
       this.store.dispatch(getStatistics());
     });
   }
+
+  // Change user role
+    onChangeUserRole(user: UserDto, newRole: string) {
+    this.adminService.changeUserRole(user.id, newRole).subscribe((res) => {
+      this.onSearchUsers(this.searchText);
+      this.showToast(res.message);
+      this.store.dispatch(getStatistics());
+    });
+  }
 }
