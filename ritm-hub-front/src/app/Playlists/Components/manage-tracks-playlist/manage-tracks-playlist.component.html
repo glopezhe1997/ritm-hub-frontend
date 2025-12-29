@@ -40,6 +40,10 @@
       <a *ngIf="track.preview_url" [href]="track.preview_url" target="_blank" class="ml-2">
         <img src="assets/icons/play.png" alt="preview" class="w-5 h-5 invert" />
       </a>
+      <app-play-button
+        [isPlaying]="currentPlayingTrackId === track.id"
+        (playPause)="togglePlay(track)">
+      </app-play-button>
       <button
         class="ml-2 px-2 py-1 text-white rounded hover:bg-red-700 transition"
         (click)="removeTrackFromPlaylist(track)"

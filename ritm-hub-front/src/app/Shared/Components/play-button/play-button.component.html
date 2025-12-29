@@ -1,0 +1,6 @@
+<button (click)="onClick()" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#9810FA] hover:bg-[#7a0fc2] transition">
+  <img *ngIf="isPlaying; else playIcon" src="assets/icons/pause.png" alt="Pause" class="w-6 h-6" />
+  <ng-template #playIcon>
+    <img src="assets/icons/play.png" alt="Play" class="w-6 h-6" />
+  </ng-template>
+</button>

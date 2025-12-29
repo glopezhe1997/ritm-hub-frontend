@@ -9,16 +9,19 @@ import { AppState } from '../../../app.reducer';
 import { Store } from '@ngrx/store';
 import * as PlaylistActions from '../../actions/playlist.action';
 import { TimeConversionPipe } from '../../../Shared/Pipes/time-conversion.pipe';
+import { PlayButtonComponent } from "../../../Shared/Components/play-button/play-button.component";
 @Component({
   selector: 'app-manage-tracks-playlist',
   standalone: true,
-  imports: [CommonModule, SearchBarComponent, TimeConversionPipe],
+  imports: [CommonModule, SearchBarComponent, TimeConversionPipe, PlayButtonComponent],
   templateUrl: './manage-tracks-playlist.component.html',
   styleUrl: './manage-tracks-playlist.component.css'
 })
 export class ManageTracksPlaylistComponent {
   @Input() playlist: PlaylistDto | undefined;
   searchResults: TrackDto[] = [];
+  currentPlayingTrackId: number | null = null;
+  audio: HTMLAudioElement | null = null;
 
   constructor(
     private tracksService: TracksService,
@@ -49,5 +52,38 @@ export class ManageTracksPlaylistComponent {
       playlistId: this.playlist.playlist_id,
       trackId: track.id
     }));
+  }
+
+  // Toggle play/pause functionality
+  togglePlay(track: TrackDto) {
+    if (this.currentPlayingTrackId === track.id) {
+      // Pausar
+      this.audio?.pause();
+      this.currentPlayingTrackId = null;
+    } else {
+      // Si ya hay un audio sonando, páralo
+      if (this.audio) {
+        this.audio.pause();
+        this.audio = null;
+      }
+      if (track.preview_url) {
+        this.audio = new Audio(track.preview_url);
+        this.audio.play();
+        this.currentPlayingTrackId = track.id;
+        // Cuando termine, resetea el estado
+        this.audio.onended = () => {
+          this.currentPlayingTrackId = null;
+          this.audio = null;
+        };
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    // Limpia el audio al destruir el componente
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+    }
   }
 }
