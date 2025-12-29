@@ -1,11 +1,20 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { registerUser, registerUserFailure, registerUserSuccess } from '../actions';
+import { 
+    registerUser, 
+    registerUserFailure, 
+    registerUserSuccess,
+    updateUser,
+    updateUserFailure,
+    updateUserSuccess
+} from '../actions';
 import { CreateUserDto } from '../models/create-user.dto';
 import { UserDto } from '../models/user.dto';
 
 export interface UsersState {
     creatingUser: boolean;
     createdUser: boolean;
+    updatingUser: boolean;
+    updatedUser: boolean;
     error: any;
     user?: UserDto;
 }
@@ -13,6 +22,8 @@ export interface UsersState {
 export const initialState: UsersState = {
     creatingUser: false,
     createdUser: false,
+    updatingUser: false,
+    updatedUser: false,
     error: null
 };
 
@@ -35,6 +46,26 @@ const _usersReducer = createReducer(
         ...state,
         creatingUser: false,
         createdUser: false,
+        error: payload
+    })),
+    // Update User
+    on(updateUser, (state) => ({
+        ...state,
+        updatingUser: true,
+        updatedUser: false,
+        error: null
+    })),
+    on(updateUserSuccess, (state, { user }) => ({
+        ...state,
+        updatingUser: false,
+        updatedUser: true,
+        error: null,
+        user
+    })),
+    on(updateUserFailure, (state, { payload }) => ({
+        ...state,
+        updatingUser: false,
+        updatedUser: false,
         error: payload
     }))
 );

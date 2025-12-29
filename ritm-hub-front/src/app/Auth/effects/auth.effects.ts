@@ -23,8 +23,8 @@ export class AuthEffects {
               username: payload.username || payload.name || '',
               email: payload.email || '',
               role: payload.role,
-              Birthdate: payload.birthdate || '', 
-              name: payload.fullname || '',
+              Birthdate: payload.Birthdate || '', 
+              name: payload.name || '',
               createdAt: payload.createdAt || '',
             };
             return loginSuccess({ access_token: res.access_token, user });
@@ -69,8 +69,8 @@ export class AuthEffects {
           username: payload.username || payload.name || '',
           email: payload.email || '',
           role: payload.role || 'user',
-          Birthdate: payload.birthdate || '',
-          name: payload.fullname || '',
+          Birthdate: payload.Birthdate || '',
+          name: payload.name || '',
           createdAt: payload.createdAt || '',
         };
         return loginSuccess({ access_token, user });

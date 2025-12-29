@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadToken, login, loginFailure, loginSuccess, logout } from '../actions';
+import { loadToken, login, loginFailure, loginSuccess, logout, setAuthUser } from '../actions';
 import { SignInDto } from '../Models/sign-in.dto';
 import { UserDto } from '../../Users/models/user.dto';
 
@@ -49,6 +49,10 @@ const _authReducer = createReducer(
     loading: false,
     loaded: true,
     error: null,
+  })),
+  on(setAuthUser, (state, { user }) => ({
+    ...state,
+    user
   })),
   on(logout, () => initialState)
 );

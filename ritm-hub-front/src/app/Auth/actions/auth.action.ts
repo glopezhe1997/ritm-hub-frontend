@@ -23,4 +23,9 @@ export const loadToken = createAction(
   props<{ access_token: string }>()
 );
 
+export const setAuthUser = createAction(
+  '[Auth] Set Auth User',
+  props<{ user: UserDto }>()
+);
+
 export const logout = createAction('[Login Page] Logout');
