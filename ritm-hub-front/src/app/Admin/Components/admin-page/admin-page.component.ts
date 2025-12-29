@@ -7,11 +7,23 @@ import { ChartConfiguration, ChartData } from 'chart.js';
 import { getStatistics } from '../../actions';
 import { CardStatisticsComponent } from '../card-statistics/card-statistics.component';
 import { RouterLink, ActivatedRoute } from '@angular/router';
+import { SearchBarComponent } from '../../../Search/Components/search-bar/search-bar.component';
+import { UsersService } from '../../../Users/services/users.service';
+import { map, Observable } from 'rxjs';
+import { UserDto } from '../../../Users/models/user.dto';
+import { CommonModule } from '@angular/common';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [BaseChartDirective, CardStatisticsComponent, RouterLink],
+  imports: [
+    BaseChartDirective, 
+    CardStatisticsComponent, 
+    RouterLink,
+    SearchBarComponent,
+    CommonModule,
+  ],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css'
 })
@@ -65,9 +77,21 @@ export class AdminPageComponent implements OnInit {
     }
   };
 
+  // Manage Users
+  searchText: string = '';
+  users$: Observable<UserDto[]> | null = null;
+  isActive: boolean = false; // Control css class for Activate/Deactivate button
+  isBlocked: boolean = false; // Control css class for Block/Unblock button
+
+  // Toast messages
+  toastMessage: string | null = null;
+  toastTimeout: any = null;
+
   constructor(
     private store: Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private usersService: UsersService,
+    private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
@@ -107,6 +131,57 @@ export class AdminPageComponent implements OnInit {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }
+    });
+  }
+
+  // Toast message handler
+  showToast(message: string) {
+    this.toastMessage = message;
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+    }
+    this.toastTimeout = setTimeout(() => {
+      this.toastMessage = null;
+    }, 3000);
+  }
+
+  // Manage Users
+
+  onSearchUsers(searchText: string) {
+    this.searchText = searchText;
+    this.users$ = this.usersService.searchUsers(searchText);
+  }
+
+  // Activate or Deactivate User
+    toggleUserStatus(user: UserDto): Observable<{ message: string, user: UserDto | null }> {
+    return user.isActive
+      ? this.adminService.deactivateUser(user.id)
+      : this.adminService.activateUser(user.id);
+  }
+
+  // Bloquea o desbloquea usuario (devuelve observable)
+  toggleUserBlock(user: UserDto): Observable<{ message: string, user: UserDto | null }> {
+    return user.isBlocked
+      ? this.adminService.unblockUser(user.id)
+      : this.adminService.blockUser(user.id);
+  }
+
+  // Handler para el botón de activar/desactivar
+  onToggleUserStatus(user: UserDto) {
+    this.toggleUserStatus(user).subscribe((res) => {
+      this.onSearchUsers(this.searchText);
+      this.showToast(res.message);
+      this.store.dispatch(getStatistics());
+
+    });
+  }
+
+  // Handler para el botón de bloquear/desbloquear
+  onToggleUserBlock(user: UserDto) {
+    this.toggleUserBlock(user).subscribe((res) => {
+      this.onSearchUsers(this.searchText);
+      this.showToast(res.message);
+      this.store.dispatch(getStatistics());
     });
   }
 }
