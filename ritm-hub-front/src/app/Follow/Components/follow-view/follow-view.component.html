@@ -1,1 +1,35 @@
-<p>follow-view works!</p>
+<div class="max-w-xl mx-auto p-6 bg-[#181f2a] rounded-lg shadow">
+  <app-search-bar (search)="onSearch($event)"></app-search-bar>
+
+  <div *ngIf="loading" class="text-center py-4 text-[#9810FA]">Buscando...</div>
+
+  <div *ngIf="users.length === 0 && !loading" class="text-center py-4 text-gray-400">
+    No results
+  </div>
+
+  <ul *ngIf="users.length > 0" class="divide-y divide-[#9810FA]/10 mt-4">
+    <li *ngFor="let user of users" class="py-3 flex items-center justify-between">
+      <div>
+        <span class="font-semibold text-gray-200">{{ user.username }}</span>
+        <span class="ml-2 text-xs text-gray-400">{{ user.email }}</span>
+      </div>
+      <app-follow-button-controller
+        [isFollowing]="isFollowing(user.id)"
+        (followChange)="onFollowChange(user, $event)">
+      </app-follow-button-controller>
+    </li>
+  </ul>
+
+  <ul *ngIf="users.length === 0 && followingUsers.length > 0 && !loading" class="divide-y divide-[#9810FA]/10 mt-4">
+  <li *ngFor="let user of followingUsers" class="py-3 flex items-center justify-between">
+    <div>
+      <span class="font-semibold text-gray-200">{{ user.username }}</span>
+      <span class="ml-2 text-xs text-gray-400">{{ user.email }}</span>
+    </div>
+    <app-follow-button-controller
+      [isFollowing]="true"
+      (followChange)="onFollowChange(user, false)">
+    </app-follow-button-controller>
+  </li>
+</ul>
+</div>

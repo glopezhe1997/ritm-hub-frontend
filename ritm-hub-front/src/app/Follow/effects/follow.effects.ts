@@ -7,7 +7,10 @@ import {
   followUserFailure,
   unfollowUser,
   unfollowUserSuccess,
-  unfollowUserFailure
+  unfollowUserFailure,
+  getFollowingUsers,
+  getFollowingUsersSuccess,
+  getFollowingUsersFailure
 } from '../actions/follow.action';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -47,4 +50,19 @@ export class FollowEffects {
       )
     )
   );
+
+  getFollowingUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getFollowingUsers),
+      switchMap((action: any) =>
+        this.followService.getFollowingUsers(action.userId).pipe(
+          map(users =>
+            getFollowingUsersSuccess({ users })
+          ),
+          catchError(error => of(getFollowingUsersFailure({ payload: error })))
+        )
+      )
+    )
+  ); 
+  
 }

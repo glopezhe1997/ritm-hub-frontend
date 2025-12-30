@@ -42,4 +42,14 @@ export class PostsService {
       }
     });
   }
+
+  // Get my feed
+  getMyFeed(): Observable<PostDto[]> {
+    const token = localStorage.getItem('authToken') || '';
+    return this.http.get<PostDto[]>(`${this.url}/feed`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 }

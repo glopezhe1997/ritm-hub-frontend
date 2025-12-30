@@ -1,5 +1,15 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { followUser, followUserFailure, followUserSuccess, unfollowUser, unfollowUserFailure, unfollowUserSuccess } from "../actions";
+import { 
+    followUser, 
+    followUserFailure, 
+    followUserSuccess, 
+    unfollowUser, 
+    unfollowUserFailure, 
+    unfollowUserSuccess,
+    getFollowingUsers,
+    getFollowingUsersFailure,
+    getFollowingUsersSuccess
+} from "../actions";
 import { UserDto } from "../../Users/models/user.dto";
 
 export interface FollowState {
@@ -44,6 +54,22 @@ export const _followReducer = createReducer(
         loading: false
     })),
     on(unfollowUserFailure, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        error: payload.message
+    })),
+    // Get Following Users
+    on(getFollowingUsers, (state) => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+    on(getFollowingUsersSuccess, (state, { users }) => ({
+        ...state,
+        usersFollowing: users,
+        loading: false
+    })),
+    on(getFollowingUsersFailure, (state, { payload }) => ({
         ...state,
         loading: false,
         error: payload.message

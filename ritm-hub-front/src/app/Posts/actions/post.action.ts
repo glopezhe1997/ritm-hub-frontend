@@ -51,6 +51,21 @@ export const getMyPostByIdFailure = createAction(
     props<{ payload: HttpErrorResponse }>(),
 );
 
+// Get following users posts
+export const getFolloweesPosts = createAction(
+    '[Followees Posts] Get Followees Posts',
+);
+
+export const getFolloweesPostsSuccess = createAction(
+    '[Followees Posts] Get Followees Posts Success',
+    props<{ posts: PostDto[] }>(),
+);
+
+export const getFolloweesPostsFailure = createAction(
+    '[Followees Posts] Get Followees Posts Failure',
+    props<{ payload: HttpErrorResponse }>(),
+);
+
 // Add one track to post
 export const addTrackToPost = createAction(
     '[Post] Add Track To Post',
@@ -60,4 +75,19 @@ export const addTrackToPost = createAction(
 export const addTrackToPostSuccess = createAction(
     '[Post] Add Track To Post Success',
     props<{ post: PostDto }>(),
+);
+
+// Get my followees posts
+export const getMyFolloweesPosts = createAction(
+    '[My Followees Posts] Get My Followees Posts',
+);
+
+export const getMyFolloweesPostsSuccess = createAction(
+    '[My Followees Posts] Get My Followees Posts Success',
+    props<{ posts: PostDto[] }>(),
+);
+
+export const getMyFolloweesPostsFailure = createAction(
+    '[My Followees Posts] Get My Followees Posts Failure',
+    props<{ payload: HttpErrorResponse }>(),
 );

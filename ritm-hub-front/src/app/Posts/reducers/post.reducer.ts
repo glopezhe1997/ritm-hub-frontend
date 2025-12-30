@@ -80,7 +80,25 @@ export const _postsReducer = createReducer(
       error: payload
     })),
 
-  // Followers' Posts
+  // Followees' Posts
+  on(PostActions.getFolloweesPosts, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PostActions.getFolloweesPostsSuccess, (state, { posts }) => ({
+    ...state,
+    followersPosts: posts,
+    loading: false,
+    loaded: true,
+    error: null
+  })),
+  on(PostActions.getFolloweesPostsFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: payload
+  }))
 );
 
 export function postsReducer(

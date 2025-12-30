@@ -21,6 +21,19 @@ export class PostEffects {
     )
   );
 
+  // Get Followees posts
+  getFolloweesPosts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostActions.getFolloweesPosts),
+      switchMap(action =>
+        this.postsService.getMyFeed().pipe(
+          map(posts => PostActions.getFolloweesPostsSuccess({ posts })),
+          catchError(error => of(PostActions.getFolloweesPostsFailure({ payload: error })))
+        )
+      )
+    )
+  );
+
   postCreatePost$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PostActions.postCreateUserPost),

@@ -8,7 +8,8 @@ import { PostItemComponent } from '../post-item/post-item.component';
 import { CommonModule } from '@angular/common';
 import { PostViewSelectorComponent } from '../post-view-selector/post-view-selector.component';
 import { RouterLink } from '@angular/router';
-
+import { FollowViewComponent } from '../../../Follow/Components/follow-view/follow-view.component';
+import { getFolloweesPosts } from '../../actions/post.action';
 export enum ViewSelected {
   FEED = 'feed',
   MYPOSTS = 'myposts',
@@ -18,7 +19,13 @@ export enum ViewSelected {
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [RouterLink, CommonModule, PostItemComponent, PostViewSelectorComponent],
+  imports: [
+    RouterLink, 
+    CommonModule, 
+    PostItemComponent, 
+    PostViewSelectorComponent,
+    FollowViewComponent,
+  ],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
@@ -38,14 +45,12 @@ export class PostListComponent implements OnInit, OnDestroy {
       if (this.viewSelected === ViewSelected.MYPOSTS) {
         this.posts = postsState.myPosts;
       } else if (this.viewSelected === ViewSelected.FEED) {
-        // this.posts = postsState.feedPosts;
-      } else if (this.viewSelected === ViewSelected.FOLLOWING) {
-        // this.posts = postsState.followingPosts;
-      }
+        this.posts = postsState.followersPosts;
+      } 
     });
     // Carga la vista inicial si es necesario
-    if (this.viewSelected === ViewSelected.MYPOSTS) {
-      this.loadPosts();
+    if (this.viewSelected === ViewSelected.FEED) {
+      this.loadFollowingPosts();
     }
   }
 
@@ -57,11 +62,16 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.viewSelected = view;
     if (view === ViewSelected.MYPOSTS) {
       this.loadPosts();
-    }
-    // Si tienes acciones para feed o following, despáchalas aquí también
+    } else if (view === ViewSelected.FEED) {
+      this.loadFollowingPosts();
+    } 
   }
 
   loadPosts() {
     this.store.dispatch(getMyPosts());
+  }
+
+  loadFollowingPosts() {
+    this.store.dispatch(getFolloweesPosts());
   }
 }
