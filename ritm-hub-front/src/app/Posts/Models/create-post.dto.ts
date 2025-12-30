@@ -5,5 +5,5 @@ export interface CreatePostDto {
     title: string;
     content: string;
     status: PostStatus;
-    track?: TrackDto | null;
+    track_id?: string;
 }

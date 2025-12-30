@@ -45,6 +45,14 @@ export const routes: Routes = [
     canActivate: [adminGuard]
   },
   {
+    path: 'posts',
+    loadComponent: () => import('./Posts/Components/post-list/post-list.component').then(m => m.PostListComponent)
+  },
+  {
+    path: 'posts/create',
+    loadComponent: () => import('./Posts/Components/post-form/post-form.component').then(m => m.PostFormComponent)
+  },
+   {
     path: 'forbidden',
     loadComponent: () => import('./Shared/Components/forbidden-page/forbidden-page.component').then(m => m.ForbiddenPageComponent)
   }

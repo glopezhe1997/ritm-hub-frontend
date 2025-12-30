@@ -34,3 +34,30 @@ export const getMyPostsFailure = createAction(
     '[My Posts] Get My Posts Failure',
     props<{ payload: HttpErrorResponse }>(),
 );
+
+// Get My Post By Id
+export const getMyPostById = createAction(
+    '[Post By Id] Get Post By Id',
+    props<{ postId: number }>(),
+);
+
+export const getMyPostByIdSuccess = createAction(
+    '[Post By Id] Get Post By Id Success',
+    props<{ post: PostDto }>(),
+);
+
+export const getMyPostByIdFailure = createAction(
+    '[Post By Id] Get Post By Id Failure',
+    props<{ payload: HttpErrorResponse }>(),
+);
+
+// Add one track to post
+export const addTrackToPost = createAction(
+    '[Post] Add Track To Post',
+    props<{ postId: number; trackId: string }>(),
+);
+
+export const addTrackToPostSuccess = createAction(
+    '[Post] Add Track To Post Success',
+    props<{ post: PostDto }>(),
+);

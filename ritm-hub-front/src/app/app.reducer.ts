@@ -7,6 +7,7 @@ import * as PlaylistReducer from './Playlists/reducers/playlist.reducer';
 import * as AuthReducer from './Auth/reducers/auth.reducer';
 import * as UserReducer from './Users/reducers/users.reducer';
 import * as AdminReducer from './Admin/reducers/admin.reducer';
+import * as PostRedcucer from './Posts/reducers/post.reducer';
 
 export interface AppState {
     artistState: ArtistReducer.ArtistState;
@@ -16,6 +17,7 @@ export interface AppState {
     authState: AuthReducer.AuthState;
     userState: UserReducer.UsersState;
     adminState: AdminReducer.AdminState
+    postState: PostRedcucer.PostState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -26,4 +28,5 @@ export const appReducers: ActionReducerMap<AppState> = {
     authState: AuthReducer.authReducer,
     userState: UserReducer.usersReducer,
     adminState: AdminReducer.adminReducer,
+    postState: PostRedcucer.postsReducer
 };

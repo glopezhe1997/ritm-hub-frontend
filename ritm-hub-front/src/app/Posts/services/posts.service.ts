@@ -16,7 +16,7 @@ export class PostsService {
   // Create post
   createPost(createPostData: CreatePostDto): Observable<PostDto> {
     const token = localStorage.getItem('authToken') || '';
-    return this.http.post<PostDto>(this.url, createPostData, {
+    return this.http.post<PostDto>(this.url + '/create-post', createPostData, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -27,6 +27,16 @@ export class PostsService {
   getMyPosts(): Observable<PostDto[]> {
     const token = localStorage.getItem('authToken') || '';
     return this.http.get<PostDto[]>(`${this.url}/my-posts`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  // Get my post by id
+  getMyPostById(postId: number): Observable<PostDto> {
+    const token = localStorage.getItem('authToken') || '';
+    return this.http.get<PostDto>(`${this.url}/my-posts/${postId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

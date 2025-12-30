@@ -28,7 +28,7 @@ export class NavegationMenuComponent implements OnInit {
   menuItems: MenuItem[] = [
     { label: 'Home', route: '/home', icon: 'home.png', showLabel: false },
     { label: 'Playlists', route: '/playlists', icon: 'songs-icon.png', showLabel: false, requiresAuth: true },
-    { label: 'Social', route: '/social', icon: 'social.png', showLabel: false, requiresAuth: true },
+    { label: 'Social', route: '/posts', icon: 'social.png', showLabel: false, requiresAuth: true },
     { label: 'Register', route: '/register', showLabel: true, requiresGuest: true },
     { label: 'Login', route: '/login', showLabel: true, requiresGuest: true },
     { label: 'Profile', route: '/profile', showLabel: true, requiresAuth: true },

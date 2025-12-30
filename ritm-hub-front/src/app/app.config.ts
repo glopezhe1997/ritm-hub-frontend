@@ -16,6 +16,7 @@ import { AuthEffects } from './Auth/effects/auth.effects';
 import { UsersEffects } from './Users/effects/users.effects';
 import { authInterceptor } from './Auth/interceptors/auth.interceptor';
 import { AdminEffects } from './Admin/effects/admin.effects';
+import { PostEffects } from './Posts/effects/post.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,7 @@ export const appConfig: ApplicationConfig = {
       AuthEffects,
       UsersEffects,
       AdminEffects,
+      PostEffects,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }),
     provideHttpClient(withInterceptors([authInterceptor])),

@@ -44,6 +44,18 @@ export class PostEffects {
     { dispatch: false } 
   )
 
+  // Get My Post By Id
+  getMyPostById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostActions.getMyPostById),
+      switchMap(action =>
+        this.postsService.getMyPostById(action.postId).pipe(
+          map(post => PostActions.getMyPostByIdSuccess({ post })),
+          catchError(error => of(PostActions.getMyPostByIdFailure({ payload: error })))
+        )
+      )
+    )
+  );  
   
   constructor(
     private actions$: Actions,

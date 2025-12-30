@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as PostActions from '../actions/post.action';
 import { PostDto } from '../Models/post.dto';
 
@@ -20,7 +20,7 @@ export const initialState: PostState = {
   error: null
 };
 
-export const postsReducer = createReducer(
+export const _postsReducer = createReducer(
   initialState,
   // My Posts
   on(PostActions.getMyPosts, (state) => ({
@@ -36,6 +36,25 @@ export const postsReducer = createReducer(
     error: null
   })),
   on(PostActions.getMyPostsFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: payload
+  })),
+  // Get My Post By Id
+  on(PostActions.getMyPostById, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(PostActions.getMyPostByIdSuccess, (state, { post }) => ({
+    ...state,
+    post,
+    loading: false,
+    loaded: true,
+    error: null
+  })),
+  on(PostActions.getMyPostByIdFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -63,3 +82,10 @@ export const postsReducer = createReducer(
 
   // Followers' Posts
 );
+
+export function postsReducer(
+  state: PostState | undefined,
+  action: Action
+): PostState {
+  return _postsReducer(state, action);
+}

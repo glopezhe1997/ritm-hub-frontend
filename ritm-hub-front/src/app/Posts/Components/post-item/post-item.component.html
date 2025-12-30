@@ -1,0 +1,53 @@
+<div class="flex-1 flex flex-col bg-[#101828] rounded-xl shadow-lg overflow-hidden">
+  <!-- Imagen del track si existe, si no, un placeholder -->
+  <img 
+    [src]="post?.track?.album?.images?.[0]?.url || 'assets/images/placeholder.jpg'" 
+    [alt]="post?.track?.title || 'Post image'" 
+    class="w-full h-40 object-cover rounded-t-xl"
+  />
+
+  <div class="p-4 text-center flex-1 flex flex-col justify-center">
+    <h3 class="text-white font-semibold text-lg mb-1 truncate">{{ post?.title }}</h3>
+    <p class="text-gray-400 text-sm font-light mb-2">{{ post?.content }}</p>
+    <div class="flex justify-center gap-2 mb-2">
+      <span 
+        class="px-3 py-1 rounded-full text-xs font-semibold"
+        [ngClass]="{
+          'bg-yellow-400 text-black': post?.status === 'happy',
+          'bg-blue-400 text-white': post?.status === 'sad',
+          'bg-red-500 text-white': post?.status === 'angry',
+          'bg-pink-500 text-white': post?.status === 'excited',
+        }"
+      >
+        {{ post?.status | titlecase }}
+      </span>
+      <span class="text-xs text-gray-400 italic">
+        {{ post?.createdAt | date:'mediumDate' }}
+      </span>
+    </div>
+    <div *ngIf="post?.track" class="text-xs text-[#9810FA] font-semibold">
+      🎵 {{ post?.track?.title }}
+    </div>
+    <div class="text-xs text-gray-400 mt-2">
+      By: {{ post?.owner?.username }}
+    </div>
+  </div>
+
+  <!-- Botones de editar/eliminar si es tu post -->
+  <div class="flex justify-center gap-2 pb-3" *ngIf="myPosts">
+    <button
+      class="bg-[#181c2f] hover:bg-[#9810FA] transition rounded-full p-2"
+      title="Edit"
+      (click)="editPost()"
+    >
+      <img src="assets/icons/edit.png" alt="Edit Icon" class="w-5 h-5 invert" />
+    </button>
+    <button
+      class="bg-[#181c2f] hover:bg-red-600 transition rounded-full p-2"
+      title="Delete"
+      (click)="deletePost()"
+    >
+      <img src="assets/icons/delete.png" alt="Delete Icon" class="w-5 h-5" />
+    </button>
+  </div>
+</div>
