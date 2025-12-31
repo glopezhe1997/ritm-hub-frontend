@@ -60,6 +60,33 @@
       </div>
     </div>
 
+    <div>
+      <label class="block mb-2 text-[#9810FA] font-semibold">Password:</label>
+      <input
+        type="password"
+        formControlName="password"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        placeholder="Leave blank to keep current password"
+      />
+      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-red-500 mt-1 text-sm">
+        <span *ngIf="password?.errors?.['minlength']">Minimum 8 characters.</span>
+        <span *ngIf="password?.errors?.['maxlength']">Maximum 16 characters.</span>
+      </div>
+    </div>
+    <div>
+      <label class="block mb-2 text-[#9810FA] font-semibold">Repeat Password:</label>
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        placeholder="Repeat new password"
+      />
+      <div *ngIf="profileForm.errors?.['passwordsMismatch'] && (password?.dirty || password?.touched || confirmPassword?.dirty || confirmPassword?.touched)" class="text-red-500 mt-1 text-sm">
+        <span>Passwords do not match.</span>
+      </div>
+    </div>
+
+
     <button
       type="submit"
       [disabled]="profileForm.invalid || loading"
@@ -67,8 +94,5 @@
     >
       Update Profile
     </button>
-
-    <div *ngIf="errorMessage" class="text-red-500 text-center mt-2">{{ errorMessage }}</div>
-    <div *ngIf="successMessage" class="text-green-500 text-center mt-2">{{ successMessage }}</div>
   </form>
 </div>

@@ -28,7 +28,7 @@ export class AuthEffects {
               name: payload.name || '',
               createdAt: payload.createdAt || '',
             };
-            return loginSuccess({ access_token: res.access_token, user });
+            return loginSuccess({ access_token: res.access_token, user, fromLoadToken: false });
           }),
           catchError(error => of(loginFailure({ payload: error })))
         )
@@ -41,10 +41,13 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(loginSuccess),
-        tap(({ access_token }) => {
+        tap(({ access_token, fromLoadToken }) => {
           localStorage.setItem('access_token', access_token);
-          this.toastService.show('Welcome to RitmHub.', 'success');
-          this.router.navigate(['/home']);
+          if( !fromLoadToken ) {
+            console.log('Navigating to /home after login');
+            this.toastService.show('Welcome to RitmHub.', 'success');
+            this.router.navigate(['/home']);
+          }
         })
       ),
     { dispatch: false }
@@ -91,7 +94,7 @@ export class AuthEffects {
           name: payload.name || '',
           createdAt: payload.createdAt || '',
         };
-        return loginSuccess({ access_token, user });
+        return loginSuccess({ access_token, user, fromLoadToken: true });
       })
     )
   );

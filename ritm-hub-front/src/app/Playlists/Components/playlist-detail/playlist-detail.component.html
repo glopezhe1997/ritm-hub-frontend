@@ -1,6 +1,6 @@
 <section class="bg-[#101828] min-h-screen flex flex-col items-center py-8">
   <div class="bg-[#1E293B] rounded-xl shadow-lg p-8 w-full max-w-xl flex flex-col items-center">
-    <ng-container *ngIf="ownedByUser; else sharedTpl">
+    <ng-container *ngIf="playlist; else sharedTpl">
       <div *ngIf="playlist as p">
         <div class="w-32 h-32 mb-4">
           <img

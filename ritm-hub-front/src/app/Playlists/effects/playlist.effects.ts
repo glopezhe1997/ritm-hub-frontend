@@ -142,7 +142,14 @@ export class PlaylistEffects {
       switchMap(action =>
         this.playlistsService.getPlaylistById(action.playlistId).pipe(
           map(playlist => PlaylistActions.getPlaylistByIdSuccess({ playlist })),
-          catchError(error => of(PlaylistActions.getPlaylistByIdFailure({ payload: error })))
+          catchError(error => {
+            // Si es 404, intenta como compartida
+            if (error?.status === 404 || error?.status === 403) {
+              return of(PlaylistActions.getSharedPlaylistById({ playlistId: action.playlistId }));
+            }
+            // Si es otro error, lanza el error normal
+            return of(PlaylistActions.getPlaylistByIdFailure({ payload: error }));
+          })
         )
       )
     )

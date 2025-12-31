@@ -5,7 +5,7 @@ import { AppState } from '../../../app.reducer';
 import { ActivatedRoute } from '@angular/router';
 import * as PlaylistActions from '../../actions/playlist.action';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { selectPlaylistById } from '../../selectors/playlist.selectors';
+import { selectPlaylistById, selectPlaylistState } from '../../selectors/playlist.selectors';
 import { selectSharedPlaylistWithMe } from '../../selectors/playlist.selectors';
 import { DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -39,27 +39,20 @@ export class PlaylistDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const nav = window.history.state;
-    this.ownedByUser = nav?.ownerByUser ?? false;
-
-    if (this.playlistId) {
-      if (this.ownedByUser) {
-        console.log('esty aqui en owned by user');
-        this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: this.playlistId }));
-        this.store.select(selectPlaylistById(this.playlistId))
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(playlist => {
-            this.playlist = playlist;
-          });
-      } else {
-        console.log('esty aqui en shared with me');
-        this.store.dispatch(PlaylistActions.getSharedPlaylistById({ playlistId: this.playlistId }));
-        this.store.select(selectSharedPlaylistWithMe)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe(playlist => {
-            this.sharedPlaylist = playlist;
-          });
-      }
+    if (this.playlistId !== null && this.playlistId !== undefined) {
+      this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: this.playlistId }));
+      this.store.select(selectPlaylistState)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(state => {
+          this.playlist = state.playlist;
+        });
+  
+      this.store.select(selectSharedPlaylistWithMe)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(sharedPlaylist => {
+          console.log('playlist desde selector:', sharedPlaylist);
+          this.sharedPlaylist = sharedPlaylist;
+        });
     }
   }
 }
