@@ -12,14 +12,16 @@ import {
   getFollowingUsersSuccess,
   getFollowingUsersFailure
 } from '../actions/follow.action';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ToastService } from '../../Shared/services/toast.service';
 
 @Injectable()
 export class FollowEffects {
   constructor(
     private actions$: Actions,
-    private followService: FollowService
+    private followService: FollowService,
+    private toastService: ToastService
   ) {}
 
   followUser$ = createEffect(() =>
@@ -36,6 +38,37 @@ export class FollowEffects {
     )
   );
 
+  // Toast notification on followUserSuccess
+
+  followUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(followUserSuccess),
+        tap((action: any) => {
+          this.toastService.show(
+            `You are now following ${action.user.username}!`,
+            'success'
+          );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  followUserFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(followUserFailure),
+        tap((action: any) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error following user';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
+  );
+
   unfollowUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(unfollowUser),
@@ -49,6 +82,32 @@ export class FollowEffects {
         )
       )
     )
+  );
+
+   unfollowUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(unfollowUserSuccess),
+        tap(() => {
+          this.toastService.show('You have unfollowed the user.', 'info');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  unfollowUserFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(unfollowUserFailure),
+        tap((action: any) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error unfollowing user';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
   );
 
   getFollowingUsers$ = createEffect(() =>

@@ -5,6 +5,7 @@ import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { PlaylistsService } from '../services/playlists.service';
 import * as PlaylistActions from '../actions/playlist.action';
 import { Router } from '@angular/router';
+import { ToastService } from '../../Shared/services/toast.service';
 
 @Injectable()
 export class PlaylistEffects {
@@ -45,6 +46,33 @@ export class PlaylistEffects {
     )
   );
 
+  //Toast
+  postCreateUserPlaylistSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.postCreateUserPlaylistSuccess),
+        tap(() => {
+          this.toastService.show('¡Playlist created!', 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  postCreateUserPlaylistFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.postCreateUserPlaylistFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error al creating the playlist';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
+  );
+
   postCreateUserPlaylistRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -67,6 +95,33 @@ export class PlaylistEffects {
         )
       )
     )
+  );
+
+  // Toast for update
+  updateUserPlaylistSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.updateUserPlaylistSuccess),
+        tap(() => {
+          this.toastService.show('¡Playlist updated!', 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateUserPlaylistFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.updateUserPlaylistFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error updating the playlist';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
   );
 
   //Redirect after update
@@ -108,6 +163,34 @@ export class PlaylistEffects {
     )
   );
 
+  // Toast en eliminar playlist
+  deleteUserPlaylistSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.deleteUserPlaylistSuccess),
+        tap((action) => {
+          this.toastService.show(action.message || 'Playlist deleted', 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+    deleteUserPlaylistFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.deleteUserPlaylistFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error deleting the playlist';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
+  );
+
+
   //Add Track to Playlist
   addTrackToPlaylist$ = createEffect(() =>
     this.actions$.pipe(
@@ -121,6 +204,33 @@ export class PlaylistEffects {
     )
   );
 
+  //Tast
+  addTrackToPlaylistSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.addTrackToPlaylistSuccess),
+        tap(() => {
+          this.toastService.show('Track added!', 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  addTrackToPlaylistFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.addTrackToPlaylistFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error adding track to playlist';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
+  );
+
   //Remove Track from Playlist
   removeTrackFromPlaylist$ = createEffect(() =>
     this.actions$.pipe(
@@ -132,6 +242,33 @@ export class PlaylistEffects {
         )
       )
     )
+  );
+
+  // Toast removing track from playlist
+  removeTrackFromPlaylistSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.removeTrackFromPlaylistSuccess),
+        tap(() => {
+          this.toastService.show('Track removed!', 'info');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  removeTrackFromPlaylistFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.removeTrackFromPlaylistFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error removing track from playlist';
+          this.toastService.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
   );
 
   //Get Playlists Shared With Me
@@ -164,5 +301,6 @@ export class PlaylistEffects {
     private actions$: Actions,
     private playlistsService: PlaylistsService,
     private router: Router,
+    private toastService: ToastService
   ) {}
 }

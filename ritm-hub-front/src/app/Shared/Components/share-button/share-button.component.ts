@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { UsersService } from '../../../Users/services/users.service';
 import { FormsModule } from '@angular/forms';
 import { PlaylistsService } from '../../../Playlists/services/playlists.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-share-button',
@@ -24,12 +25,14 @@ export class ShareButtonComponent {
   constructor(
     private usersService: UsersService,
     private playlistsService: PlaylistsService,
+    private toastService: ToastService,
   ) {}
 
   share() {
     if (this.isPublic) {
       navigator.clipboard.writeText(window.location.href).then(() => {
         this.copied = true;
+        this.toastService.show('¡Link correctly!', 'info'); // <-- toast
         setTimeout(() => this.copied = false, 1500);
       });
     } else {
@@ -50,10 +53,10 @@ export class ShareButtonComponent {
     this.playlistsService.sharePlaylistWithUser(this.playlistId, userId).subscribe({
       next: () => {
         this.showUserInput = false;
-        alert('Playlist compartida con el usuario seleccionado.');
+        this.toastService.show('Playlist correctly shared!', 'success'); // <-- toast
       },
       error: (err) => {
-        alert(err?.error?.message || 'Error al compartir la playlist.');
+        alert(err?.error?.message || 'Error sharing the playlist.');
       }
     });
   }

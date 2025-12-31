@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TimeConversionPipe implements PipeTransform {
 
-  transform(ms: number): string | null {
+  transform(ms: number | null | undefined): string | null {
     if (ms === null || ms === undefined) {
       return null;
     }

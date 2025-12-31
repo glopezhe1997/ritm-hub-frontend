@@ -8,6 +8,7 @@ import { SignInDto } from '../Models/sign-in.dto';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { UserDto } from '../../Users/models/user.dto';
+import { ToastService } from '../../Shared/services/toast.service';
 
 @Injectable()
 export class AuthEffects {
@@ -35,13 +36,30 @@ export class AuthEffects {
     )
   );
 
+  // 
   loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(loginSuccess),
         tap(({ access_token }) => {
           localStorage.setItem('access_token', access_token);
+          this.toastService.show('Welcome to RitmHub.', 'success');
           this.router.navigate(['/home']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+    loginFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loginFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Login failed. Please try again.';
+          this.toastService.show(msg, 'error');
         })
       ),
     { dispatch: false }
@@ -81,6 +99,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 }

@@ -20,7 +20,6 @@ export class RegisterComponent {
   Birthdate: FormControl;
   email: FormControl;
   password: FormControl;
-  errorMessage: string = '';
 
   constructor(
     private store: Store<AppState>,

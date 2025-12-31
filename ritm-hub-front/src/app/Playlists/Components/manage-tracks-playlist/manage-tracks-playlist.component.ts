@@ -47,7 +47,6 @@ export class ManageTracksPlaylistComponent {
 
   removeTrackFromPlaylist(track: TrackDto) {
     if (!this.playlist) return;
-    console.log('Eliminando track:', track);
     this.store.dispatch(PlaylistActions.removeTrackFromPlaylist({
       playlistId: this.playlist.playlist_id,
       trackId: track.id

@@ -5,6 +5,7 @@ import { map, catchError, switchMap, tap } from 'rxjs/operators';
 import { PostsService } from '../services/posts.service';
 import * as PostActions from '../actions/post.action';
 import { Router } from '@angular/router';
+import { ToastService } from '../../Shared/services/toast.service';
 
 @Injectable()
 export class PostEffects {
@@ -46,6 +47,32 @@ export class PostEffects {
     )
   );
 
+    postCreatePostSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostActions.postCreateUserPostSuccess),
+        tap(() => {
+          this.toast.show('¡Post creado con éxito!', 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  postCreatePostFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostActions.postCreateUserPostFailure),
+        tap(action => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Error al crear el post';
+          this.toast.show(msg, 'error');
+        })
+      ),
+    { dispatch: false }
+  );
+
   postCreatePostRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -73,6 +100,7 @@ export class PostEffects {
   constructor(
     private actions$: Actions,
     private postsService: PostsService,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) {}
 }
