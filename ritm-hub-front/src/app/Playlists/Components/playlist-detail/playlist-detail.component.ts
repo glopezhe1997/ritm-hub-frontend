@@ -5,7 +5,7 @@ import { AppState } from '../../../app.reducer';
 import { ActivatedRoute } from '@angular/router';
 import * as PlaylistActions from '../../actions/playlist.action';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { selectPlaylistById, selectPlaylistState } from '../../selectors/playlist.selectors';
+import { selectPlaylist } from '../../selectors/playlist.selectors';
 import { selectSharedPlaylistWithMe } from '../../selectors/playlist.selectors';
 import { DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -41,16 +41,15 @@ export class PlaylistDetailComponent implements OnInit {
   ngOnInit(): void {
     if (this.playlistId !== null && this.playlistId !== undefined) {
       this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: this.playlistId }));
-      this.store.select(selectPlaylistState)
+      this.store.select(selectPlaylist)
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(state => {
-          this.playlist = state.playlist;
+        .subscribe(playlist => {
+          this.playlist = playlist;
         });
   
       this.store.select(selectSharedPlaylistWithMe)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(sharedPlaylist => {
-          console.log('playlist desde selector:', sharedPlaylist);
           this.sharedPlaylist = sharedPlaylist;
         });
     }

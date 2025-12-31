@@ -144,10 +144,12 @@ export class PlaylistEffects {
           map(playlist => PlaylistActions.getPlaylistByIdSuccess({ playlist })),
           catchError(error => {
             // Si es 404, intenta como compartida
-            if (error?.status === 404 || error?.status === 403) {
-              return of(PlaylistActions.getSharedPlaylistById({ playlistId: action.playlistId }));
+            if (error?.status === 403 || error?.status === 404) {
+                return of(PlaylistActions.getSharedPlaylistById({ playlistId: action.playlistId }));
             }
             // Si es otro error, lanza el error normal
+            this.toastService.show('Playlist not found/not acces, redirecting to home.', 'error');
+            this.router.navigate(['/home']);
             return of(PlaylistActions.getPlaylistByIdFailure({ payload: error }));
           })
         )
@@ -298,10 +300,28 @@ export class PlaylistEffects {
       switchMap(action =>
         this.playlistsService.getSharedPlaylistById(action.playlistId).pipe(
           map(playlist => PlaylistActions.getSharedPlaylistByIdSuccess({ playlist })),
-          catchError(error => of(PlaylistActions.getSharedPlaylistByIdFailure({ payload: error })))
+          catchError(error => 
+            of(PlaylistActions.getSharedPlaylistByIdFailure({ payload: error })),
+          )
         )
       )
     )
+  );
+
+  getSharedPlaylistByIdFailureRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlaylistActions.getSharedPlaylistByIdFailure),
+        tap((action) => {
+          const msg =
+            action.payload?.error?.message ||
+            action.payload?.message ||
+            'Playlist not found or you do not have access.';
+          this.toastService.show(msg, 'error');
+          this.router.navigate(['/home']);
+        })
+      ),
+    { dispatch: false }
   );
   
   constructor(

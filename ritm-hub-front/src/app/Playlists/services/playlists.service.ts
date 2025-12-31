@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlaylistDto } from '../Models/playlist.dto';
 import { environment } from '../../../environments/environment';
-import { UserDto } from '../../Users/models/user.dto';
 import { PlaylistSpotifyDto } from '../Models/playlist-spotify.dto';
 import { CreatePlaylistsDto } from '../Models/create-playlists.dto';
 import { SharedPlaylistsResultDto } from '../Models/shared-playlists-result.dto';

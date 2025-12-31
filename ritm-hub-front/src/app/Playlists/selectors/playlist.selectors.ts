@@ -14,3 +14,8 @@ export const selectSharedPlaylistWithMe = createSelector(
   selectPlaylistState,
   (state) => state.sharedPlaylistWithMe
 );
+
+export const selectPlaylist = createSelector(
+  selectPlaylistState,
+  (state) => state.playlist
+);
