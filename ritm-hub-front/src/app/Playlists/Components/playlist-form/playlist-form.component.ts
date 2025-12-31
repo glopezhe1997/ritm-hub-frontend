@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -49,7 +48,6 @@ export class PlaylistFormComponent {
   ) {
     this.userId = 0;
 
-    this.playlistId = this.activatedRoute.snapshot.paramMap.get('id');
     this.playlist = {
     playlist_id: 0,
     name: '',
@@ -103,6 +101,8 @@ export class PlaylistFormComponent {
   } 
 
   ngOnInit(): void {
+        this.playlistId = this.activatedRoute.snapshot.paramMap.get('id');
+
     if (this.playlistId) {
       this.isUpdateMode = true;
       this.store.dispatch(
