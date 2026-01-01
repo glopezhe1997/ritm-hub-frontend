@@ -1,5 +1,5 @@
 <button
-  class="flex items-center gap-2 px-3 py-1 rounded bg-[#9810FA] text-white hover:bg-[#7a0fc2] transition font-semibold shadow-md relative"
+  class="flex items-center gap-2 px-3 py-1 rounded bg-[#C16EFC] text-white hover:bg-[#7a0fc2] transition font-semibold shadow-md relative"
   (click)="share()"
 >
   <img src="assets/icons/share.png" alt="Share" class="w-4 h-4 invert" />
@@ -21,7 +21,7 @@
   />
   <ul>
     <li *ngFor="let user of users">
-      <button (click)="selectUser(user.id)" class="text-[#9810FA] hover:underline">
+      <button (click)="selectUser(user.id)" class="text-[#C16EFC] hover:underline">
         {{ user.username }} ({{ user.email }})
       </button>
     </li>

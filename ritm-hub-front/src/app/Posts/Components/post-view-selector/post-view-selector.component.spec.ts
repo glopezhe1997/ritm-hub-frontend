@@ -34,9 +34,9 @@ describe('PostViewSelectorComponent', () => {
     component.viewSelected = ViewSelected.MYPOSTS;
     fixture.detectChanges();
     const buttons = fixture.debugElement.queryAll(By.css('button'));
-    expect(buttons[1].nativeElement.className).toContain('bg-[#9810FA]');
+    expect(buttons[1].nativeElement.className).toContain('bg-[#C16EFC]');
     expect(buttons[1].nativeElement.className).toContain('text-white');
-    expect(buttons[0].nativeElement.className).not.toContain('bg-[#9810FA]');
+    expect(buttons[0].nativeElement.className).not.toContain('bg-[#C16EFC]');
   });
 
   it('should emit viewChange when a button is clicked', () => {

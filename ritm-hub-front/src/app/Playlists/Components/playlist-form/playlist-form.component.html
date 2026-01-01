@@ -9,13 +9,13 @@
     </h2>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Name:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Name:</label>
       <input
         type="text"
         formControlName="name"
         placeholder="Playlist name..."
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="name.errors?.['required']">Name is required.</span>
@@ -25,11 +25,11 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Description:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Description:</label>
       <textarea
         formControlName="description"
         placeholder="Description..."
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
         rows="2"
       ></textarea>
       <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-red-500 mt-1 text-sm">
@@ -38,12 +38,12 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Image URL:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Image URL:</label>
       <input
         type="text"
         formControlName="images"
         placeholder="https://example.com/image.png"
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="images.invalid && (images.dirty || images.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="images.errors?.['pattern']">Must be a valid image URL.</span>
@@ -55,15 +55,15 @@
         type="checkbox"
         formControlName="is_public"
         id="public"
-        class="mr-2 accent-[#9810FA]"
+        class="mr-2 accent-[#C16EFC]"
       />
-      <label for="public" class="text-[#9810FA] font-semibold">Public playlist</label>
+      <label for="public" class="text-[#C16EFC] font-semibold">Public playlist</label>
     </div>
 
     <button
       type="submit"
       [disabled]="playlistForm.invalid"
-      class="w-full py-2 rounded-lg bg-[#9810FA] text-white font-bold hover:bg-[#7a0fc2] transition"
+      class="w-full py-2 rounded-lg bg-[#C16EFC] text-white font-bold hover:bg-[#7a0fc2] transition"
     >
       {{ isUpdateMode ? 'Save Changes' : 'Create Playlist' }}
     </button>

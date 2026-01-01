@@ -5,10 +5,10 @@
     <aside class="w-1/4 p-4 bg-[#181f2f] rounded-lg mr-4 my-14">
       <!-- Artists Carousel -->
       <div *ngIf="getFilteredArtists().length" class="mb-8">
-        <h2 class="text-lg text-[#9810FA] mb-2">Artists</h2>
+        <h2 class="text-lg text-[#C16EFC] mb-2">Artists</h2>
         <div class="relative flex items-center justify-center">
           <button
-            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute left-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="artistIndex = Math.max(artistIndex - 1, 0)"
             [disabled]="artistIndex === 0"
             aria-label="Previous artist"
@@ -25,7 +25,7 @@
             </p>
           </div>
           <button
-            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute right-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="artistIndex = Math.min(artistIndex + 1, getFilteredArtists().length - 1)"
             [disabled]="artistIndex === getFilteredArtists().length - 1"
             aria-label="Next artist"
@@ -34,10 +34,10 @@
       </div>
       <!-- Albums Carousel -->
       <div *ngIf="getFilteredAlbums().length" class="mb-8">
-        <h2 class="text-lg text-[#9810FA] mb-2">Albums</h2>
+        <h2 class="text-lg text-[#C16EFC] mb-2">Albums</h2>
         <div class="relative flex items-center justify-center">
           <button
-            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute left-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="albumIndex = Math.max(albumIndex - 1, 0)"
             [disabled]="albumIndex === 0"
             aria-label="Previous album"
@@ -54,7 +54,7 @@
             </p>
           </div>
           <button
-            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute right-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="albumIndex = Math.min(albumIndex + 1, getFilteredAlbums().length - 1)"
             [disabled]="albumIndex === getFilteredAlbums().length - 1"
             aria-label="Next album"
@@ -63,10 +63,10 @@
       </div>
       <!-- Playlists Carousel -->
       <div *ngIf="getFilteredPlaylists().length" class="mb-8">
-        <h2 class="text-lg text-[#9810FA] mb-2">Playlists</h2>
+        <h2 class="text-lg text-[#C16EFC] mb-2">Playlists</h2>
         <div class="relative flex items-center justify-center">
           <button
-            class="absolute left-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute left-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="playlistIndex = Math.max(playlistIndex - 1, 0)"
             [disabled]="playlistIndex === 0"
             aria-label="Previous playlist"
@@ -83,7 +83,7 @@
             </p>
           </div>
           <button
-            class="absolute right-0 z-10 bg-[#9810FA] text-white px-2 py-1 rounded-full"
+            class="absolute right-0 z-10 bg-[#C16EFC] text-white px-2 py-1 rounded-full"
             (click)="playlistIndex = Math.min(playlistIndex + 1, getFilteredPlaylists().length - 1)"
             [disabled]="playlistIndex === getFilteredPlaylists().length - 1"
             aria-label="Next playlist"
@@ -95,7 +95,7 @@
     <main class="w-full">
       <!-- Tracks -->
       <div *ngIf="getFilteredTracks().length" class="my-5">
-        <h2 class="text-lg text-[#9810FA] mb-2">Tracks</h2>
+        <h2 class="text-lg text-[#C16EFC] mb-2">Tracks</h2>
         <div
           *ngFor="let track of getFilteredTracks()"
           class="w-full flex justify-between items-center p-4 bg-[#1E2939] rounded-lg my-2"
@@ -125,7 +125,7 @@
   <div class="block md:hidden">
     <!-- Artists -->
     <div *ngIf="getFilteredArtists().length" class="mb-5">
-      <h2 class="text-lg text-[#9810FA] mb-2">Artists</h2>
+      <h2 class="text-lg text-[#C16EFC] mb-2">Artists</h2>
       <div class="flex flex-wrap gap-8 justify-center">
         <div
           *ngFor="let artist of getFilteredArtists()"
@@ -143,7 +143,7 @@
     </div>
     <!-- Albums -->
     <div *ngIf="getFilteredAlbums().length" class="my-5">
-      <h2 class="text-lg text-[#9810FA] mb-2">Albums</h2>
+      <h2 class="text-lg text-[#C16EFC] mb-2">Albums</h2>
       <div class="flex flex-wrap gap-8 justify-center">
         <div
           *ngFor="let album of getFilteredAlbums()"
@@ -161,7 +161,7 @@
     </div>
     <!-- Tracks -->
     <div *ngIf="getFilteredTracks().length" class="my-5">
-      <h2 class="text-lg text-[#9810FA] mb-2">Tracks</h2>
+      <h2 class="text-lg text-[#C16EFC] mb-2">Tracks</h2>
       <div
         *ngFor="let track of getFilteredTracks()"
         class="w-4/5 flex justify-between items-center p-4 bg-[#1E2939] rounded-lg my-2"
@@ -187,7 +187,7 @@
     </div>
     <!-- Playlists -->
     <div *ngIf="getFilteredPlaylists().length" class="my-5">
-      <h2 class="text-lg text-[#9810FA] mb-2">Playlists</h2>
+      <h2 class="text-lg text-[#C16EFC] mb-2">Playlists</h2>
       <div class="flex flex-wrap gap-8 justify-center">
         <div
           *ngFor="let playlist of getFilteredPlaylists()"

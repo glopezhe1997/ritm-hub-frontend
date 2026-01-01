@@ -68,7 +68,7 @@ describe('FollowViewComponent', () => {
   it('should show loading indicator when loading', () => {
     component.loading = true;
     fixture.detectChanges();
-    const loading = fixture.debugElement.query(By.css('.text-center.py-4')); //No pongo la clase -[#9810FA] porque tailwing no está permitido en los tests
+    const loading = fixture.debugElement.query(By.css('.text-center.py-4')); //No pongo la clase -[#C16EFC] porque tailwing no está permitido en los tests
     expect(loading.nativeElement.textContent).toContain('Searching...');
   });
 

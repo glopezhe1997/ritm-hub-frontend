@@ -58,7 +58,7 @@ describe('FollowButtonControllerComponent', () => {
     component.isFollowing = false;
     fixture.detectChanges();
     let button = fixture.debugElement.query(By.css('button')).nativeElement;
-    expect(button.className).toContain('bg-[#9810FA]');
+    expect(button.className).toContain('bg-[#C16EFC]');
     component.isFollowing = true;
     fixture.detectChanges();
     button = fixture.debugElement.query(By.css('button')).nativeElement;

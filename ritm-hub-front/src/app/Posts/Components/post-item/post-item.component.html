@@ -25,7 +25,7 @@
         {{ post?.createdAt | date:'mediumDate' }}
       </span>
     </div>
-    <div *ngIf="post?.track" class="text-xs text-[#9810FA] font-semibold">
+    <div *ngIf="post?.track" class="text-xs text-[#C16EFC] font-semibold">
       🎵 {{ post?.track?.title }}
     </div>
     <div class="text-xs text-gray-400 mt-2">
@@ -36,7 +36,7 @@
   <!-- Botones de editar/eliminar si es tu post -->
   <div class="flex justify-center gap-2 pb-3" *ngIf="myPosts">
     <button
-      class="bg-[#181c2f] hover:bg-[#9810FA] transition rounded-full p-2"
+      class="bg-[#181c2f] hover:bg-[#C16EFC] transition rounded-full p-2"
       title="Edit"
       (click)="editPost()"
     >

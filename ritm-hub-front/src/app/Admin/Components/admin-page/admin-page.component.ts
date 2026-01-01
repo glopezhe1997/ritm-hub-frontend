@@ -38,7 +38,7 @@ export class AdminPageComponent implements OnInit {
       {
         data: [0, 0],
         label: 'Users',
-        backgroundColor: ['#9810FA', '#a628ff']
+        backgroundColor: ['#C16EFC', '#a628ff']
       }
     ]
   };
@@ -106,7 +106,7 @@ export class AdminPageComponent implements OnInit {
             {
               data: [statistics.totalActiveUsers, statistics.totalInactiveUsers],
               label: 'Users',
-              backgroundColor: ['#9810FA', '#a628ff']
+              backgroundColor: ['#C16EFC', '#a628ff']
             }
           ]
         };

@@ -6,7 +6,7 @@
           <a 
             *ngIf="!item.isLogout"
             [routerLink]="item.route" 
-            class="inline-flex items-center gap-2 text-[#9810fa] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
+            class="inline-flex items-center gap-2 text-[#C16EFC] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100"
           >
             <img 
               *ngIf="item.icon" 
@@ -19,7 +19,7 @@
           <a 
             *ngIf="item.isLogout"
             (click)="onLogout()"
-            class="inline-flex items-center gap-2 text-[#9810FA] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100 cursor-pointer"
+            class="inline-flex items-center gap-2 text-[#C16EFC] hover:text-[#a628ff] hover:scale-105 transition-transform duration-100 cursor-pointer"
           >
             <span *ngIf="item.showLabel">{{ item.label }}</span>
           </a>
