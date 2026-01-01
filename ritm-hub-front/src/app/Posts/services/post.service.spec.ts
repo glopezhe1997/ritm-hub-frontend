@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { PostsService } from './posts.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CreatePostDto } from '../Models/create-post.dto';
-import { PostDto, PostStatus } from '../Models/post.dto';
+import { PostDto } from '../Models/post.dto';
+import { PostStatus } from '../Models/post-status.enum';  
 import { environment } from '../../../environments/environment';
 
 describe('PostsService', () => {

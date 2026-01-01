@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ViewSelected } from '../post-list/post-list.component';
+import { ViewSelected } from '../../Models/view-selected.enum';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-post-view-selector',

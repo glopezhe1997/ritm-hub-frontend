@@ -1,5 +1,4 @@
-import { TrackDto } from "../../Tracks/Models/track.dto";
-import { PostStatus } from "./post.dto";
+import { PostStatus } from "./post-status.enum";
 
 export interface CreatePostDto {
     title: string;

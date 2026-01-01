@@ -10,12 +10,7 @@ import { PostViewSelectorComponent } from '../post-view-selector/post-view-selec
 import { RouterLink } from '@angular/router';
 import { FollowViewComponent } from '../../../Follow/Components/follow-view/follow-view.component';
 import { getFolloweesPosts } from '../../actions/post.action';
-export enum ViewSelected {
-  FEED = 'feed',
-  MYPOSTS = 'myposts',
-  FOLLOWING = 'following'
-}
-
+import { ViewSelected } from '../../Models/view-selected.enum';
 @Component({
   selector: 'app-post-list',
   standalone: true,
