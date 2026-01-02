@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { adminGuard } from './Shared/Guards/admin.guard';
-
+import { authenticatedGuard } from './Shared/Guards/authenticated.guard';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
@@ -21,23 +21,28 @@ export const routes: Routes = [
   },
   {
     path:'profile',
-    loadComponent: () => import('./Users/Components/profile/profile.component').then(m => m.ProfileComponent)
+    loadComponent: () => import('./Users/Components/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [authenticatedGuard]
   },
   {
     path: 'playlists',
-    loadComponent: () => import('./Playlists/Components/playlist-list/playlist-list.component').then(m => m.PlaylistListComponent)
+    loadComponent: () => import('./Playlists/Components/playlist-list/playlist-list.component').then(m => m.PlaylistListComponent),
+    canActivate: [authenticatedGuard]
   },
   {
   path: 'playlists/create',
-  loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent)
+  loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent),
+  canActivate: [authenticatedGuard]
   },
   {
     path: 'playlists/:id',
-    loadComponent: () => import('./Playlists/Components/playlist-detail/playlist-detail.component').then(m => m.PlaylistDetailComponent)
+    loadComponent: () => import('./Playlists/Components/playlist-detail/playlist-detail.component').then(m => m.PlaylistDetailComponent),
+    canActivate: [authenticatedGuard]
   },
   {
     path: 'playlists/edit/:id',
-    loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent)
+    loadComponent: () => import('./Playlists/Components/playlist-form/playlist-form.component').then(m => m.PlaylistFormComponent),
+    canActivate: [authenticatedGuard]
   },
   {
     path: 'admin',
@@ -46,11 +51,13 @@ export const routes: Routes = [
   },
   {
     path: 'posts',
-    loadComponent: () => import('./Posts/Components/post-list/post-list.component').then(m => m.PostListComponent)
+    loadComponent: () => import('./Posts/Components/post-list/post-list.component').then(m => m.PostListComponent),
+    canActivate: [authenticatedGuard]
   },
   {
     path: 'posts/create',
-    loadComponent: () => import('./Posts/Components/post-form/post-form.component').then(m => m.PostFormComponent)
+    loadComponent: () => import('./Posts/Components/post-form/post-form.component').then(m => m.PostFormComponent),
+    canActivate: [authenticatedGuard]
   },
    {
     path: 'forbidden',
