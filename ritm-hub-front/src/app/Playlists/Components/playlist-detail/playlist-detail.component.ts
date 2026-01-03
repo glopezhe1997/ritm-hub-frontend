@@ -49,7 +49,6 @@ export class PlaylistDetailComponent implements OnInit {
       });
 
     if (this.playlistId !== null && this.playlistId !== undefined) {
-      this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: this.playlistId }));
       this.store.select(selectPlaylist)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(playlist => {
