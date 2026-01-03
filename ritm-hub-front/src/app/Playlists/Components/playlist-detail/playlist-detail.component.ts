@@ -39,6 +39,16 @@ export class PlaylistDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.routeActivated.paramMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(paramMap => {
+        const id = Number(paramMap.get('id'));
+        if (id) {
+          this.playlistId = id;
+          this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: id }));
+        }
+      });
+
     if (this.playlistId !== null && this.playlistId !== undefined) {
       this.store.dispatch(PlaylistActions.getPlaylistById({ playlistId: this.playlistId }));
       this.store.select(selectPlaylist)
