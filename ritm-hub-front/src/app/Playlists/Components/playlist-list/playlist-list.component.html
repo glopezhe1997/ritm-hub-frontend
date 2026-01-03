@@ -1,1 +1,43 @@
-<p>playlist-list works!</p>
+<section class="bg-[#101828]">
+    <div class="flex justify-between items-center py-3">
+        <h2 class="text-[#C16EFC]">Playlists</h2>
+        <div class="w-6 h-full invert ">
+            <a routerLink="/playlists/create">
+                <img src="assets/icons/plus.png" alt="create playlist">
+            </a>
+        </div>
+    </div>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+        <li *ngFor="let playlist of playlists">
+            <div class="bg-[#1E293B] rounded-xl shadow-lg p-4 flex flex-col items-center hover:scale-105 transition">
+            <app-playlist-item
+                [playlistName]="playlist.name"
+                [trackCount]="playlist.tracks.length"
+                [imageUrl]="playlist.images?.[0] || 'assets/icons/playlists-icon.png'"                
+                [playlistId]="playlist.playlist_id"
+                (editPlaylist)="navigateToEdit($event)"
+                [ownerByUser]="true"
+                (deletePlaylist)="onDeletePlaylist($event)"
+            ></app-playlist-item>
+            </div>
+        </li>
+    </ul>
+</section>
+<section class="bg-[#101828]">
+    <div class="flex justify-between items-center py-3">
+        <h2 class="text-[#C16EFC]">Playlists Shared With Me</h2>
+    </div>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+        <li *ngFor="let playlist of sharedPlaylists">
+            <div class="bg-[#1E293B] rounded-xl shadow-lg p-4 flex flex-col items-center hover:scale-105 transition">
+            <app-playlist-item
+                [playlistName]="playlist.name"
+                [trackCount]="playlist.tracks.length"
+                [imageUrl]="playlist.images?.[0] || 'assets/icons/playlists-icon.png'"
+                [playlistId]="playlist.playlist_id"
+                [ownerByUser]="false"
+                (editPlaylist)="navigateToEdit($event)"
+            ></app-playlist-item>
+            </div>
+        </li>
+    </ul>

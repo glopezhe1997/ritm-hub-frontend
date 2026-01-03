@@ -15,3 +15,19 @@ export const getTrendingTracksFailure = createAction(
     '[Trending Track] Get Trending Tracks Failure',
     props<{ payload: HttpErrorResponse }>(),
 );
+
+//Search Tracks
+export const searchTracks = createAction(
+    '[Search Track] Search Tracks',
+    props<{ query: string }>(),
+);
+
+export const searchTracksSuccess = createAction(
+    '[Search Track] Search Tracks Success',
+    props<{ tracks: TrackDto[] }>(),
+);
+
+export const searchTracksFailure = createAction(
+    '[Search Track] Search Tracks Failure',
+    props<{ payload: HttpErrorResponse }>(),
+);

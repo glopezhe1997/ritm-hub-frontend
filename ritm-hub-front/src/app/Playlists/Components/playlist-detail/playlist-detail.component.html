@@ -1,0 +1,68 @@
+<section class="bg-[#101828] min-h-screen flex flex-col items-center py-8">
+  <div class="bg-[#1E293B] rounded-xl shadow-lg p-8 w-full max-w-xl flex flex-col items-center">
+    <ng-container *ngIf="playlist; else sharedTpl">
+      <div *ngIf="playlist as p">
+        <div class="w-32 h-32 mb-4">
+          <img
+            [src]="p.images?.[0] || 'assets/icons/playlists-icon.png'"
+            alt="playlist cover"
+            class="rounded-lg w-full h-full object-cover border-2 border-[#C16EFC]"
+          />
+        </div>
+        <h2 class="text-3xl font-bold text-[#C16EFC] mb-2">{{ p.name }}</h2>
+        <p class="text-gray-300 mb-2 italic" *ngIf="p.description">{{ p.description }}</p>
+        <div class="flex items-center gap-4 mb-4">
+          <span class="text-sm text-gray-400">
+            <img src="assets/icons/music.png" alt="tracks" class="inline w-5 h-5 mr-1 invert" />
+            {{ p.tracks.length || 0 }} tracks
+          </span>
+          <span
+            class="text-xs px-2 py-1 rounded-full"
+            [ngClass]="p.is_public ? 'bg-green-700 text-green-200' : 'bg-gray-700 text-gray-300'"
+          >
+            {{ p.is_public ? 'Public' : 'Private' }}
+          </span>
+          <app-share-button 
+            [item]="'playlist'"
+            [isPublic]="p.is_public"
+            [playlistId]="p.playlist_id"
+          >
+          </app-share-button>
+        </div>
+        <app-manage-tracks-playlist [playlist]="p"></app-manage-tracks-playlist>
+      </div>
+    </ng-container>
+    <ng-template #sharedTpl>
+      <div *ngIf="sharedPlaylist as sp">
+        <div class="w-32 h-32 mb-4">
+          <img
+            [src]="sp.images?.[0] || 'assets/icons/playlists-icon.png'"
+            alt="playlist cover"
+            class="rounded-lg w-full h-full object-cover border-2 border-[#C16EFC]"
+          />
+        </div>
+        <h2 class="text-3xl font-bold text-[#C16EFC] mb-2">{{ sp.name }}</h2>
+        <p class="text-gray-300 mb-2 italic" *ngIf="sp.description">{{ sp.description }}</p>
+        <div class="flex items-center gap-4 mb-4">
+          <span class="text-sm text-gray-400">
+            <img src="assets/icons/music.png" alt="tracks" class="inline w-5 h-5 mr-1 invert" />
+            {{ sp.tracks.length || 0 }} tracks
+          </span>
+          <span
+            class="text-xs px-2 py-1 rounded-full"
+            [ngClass]="sp.is_public ? 'bg-green-700 text-green-200' : 'bg-gray-700 text-gray-300'"
+          >
+            {{ sp.is_public ? 'Public' : 'Private' }}
+          </span>
+          <app-share-button 
+            [item]="'playlist'"
+            [isPublic]="sp.is_public"
+            [playlistId]="sp.playlist_id"
+          >
+          </app-share-button>
+        </div>
+        <app-manage-tracks-playlist [playlist]="sp"></app-manage-tracks-playlist>
+      </div>
+    </ng-template>
+  </div>
+</section>

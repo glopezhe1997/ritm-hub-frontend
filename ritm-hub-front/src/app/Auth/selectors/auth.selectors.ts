@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
+import { jwtDecode } from 'jwt-decode';
 
 export const selectAuthState = (state: AppState) => state.authState;
 
@@ -21,4 +22,15 @@ export const selectAuthLoading = createSelector(
 export const selectAuthError = createSelector(
   selectAuthState,
   (authState) => authState.error
+);
+
+export const isAdmin = createSelector(
+  selectAuthState,
+  (authState) => {
+    if (!authState.access_token) {
+      return false;
+    }
+    const payload: any = jwtDecode(authState.access_token);
+    return payload.role === 'admin';
+  }
 );

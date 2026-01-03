@@ -1,0 +1,56 @@
+<h3 class="text-lg text-[#C16EFC] mb-2">Tracks</h3>
+
+<!-- Barra de búsqueda -->
+<app-search-bar (search)="onSearchTracks($event)"></app-search-bar>
+
+<!-- Resultados de búsqueda de Spotify -->
+<div *ngIf="searchResults.length" class="w-full mt-4">
+  <h4 class="text-[#C16EFC] mb-2">Spotify Results</h4>
+  <ul class="divide-y divide-[#C16EFC]/10">
+    <li *ngFor="let track of searchResults" class="py-2 flex items-center gap-3">
+      <img
+        [src]="track.album.images?.[1]?.url || track.album.images?.[0]?.url || 'assets/icons/music.png'"
+        alt="Album Art"
+        class="w-10 h-10 object-cover rounded"
+      />
+      <span class="flex-1 text-gray-200">{{ track.name }}</span>
+      <span class="text-xs text-gray-400">{{ track.duration_ms | timeConversion }}</span>
+      <button
+        class="ml-2 px-2 py-1 bg-[#C16EFC] text-white rounded hover:bg-[#7a0fc2] transition"
+        (click)="addTrackToPlaylist(track)"
+      >
+        <img src="assets/icons/playlists-icon.png" alt="Add Icon" class="w-4 h-4 invert" />
+      </button>
+    </li>
+    <li *ngIf="!searchResults.length" class="text-gray-400 py-4 text-center">No Results</li>
+  </ul>
+</div>
+
+<!-- Tracks actuales de la playlist -->
+<div class="w-full mt-6" *ngIf="(playlist?.tracks ?? []).length > 0">
+  <h4 class="text-[#C16EFC] mb-2">Already in the playlist</h4>
+  <ul class="divide-y divide-[#C16EFC]/10">
+    <li
+      *ngFor="let track of playlist?.tracks; let i = index"
+      class="py-2 flex items-center gap-3"
+    >
+      <span class="text-[#C16EFC] font-bold w-6 text-right">{{ i + 1 }}.</span>
+      <span class="flex-1 text-gray-200">{{ track.title }}</span>
+      <span class="text-xs text-gray-400">{{ (track.duration_ms / 60000) | number:'1.0-0' }}:{{ ((track.duration_ms % 60000) / 1000) | number:'2.0-0' }}</span>
+      <a *ngIf="track.preview_url" [href]="track.preview_url" target="_blank" class="ml-2">
+        <img src="assets/icons/play.png" alt="preview" class="w-5 h-5 invert" />
+      </a>
+      <app-play-button
+        [isPlaying]="currentPlayingTrackId === track.id"
+        (playPause)="togglePlay(track)">
+      </app-play-button>
+      <button
+        class="ml-2 px-2 py-1 text-white rounded hover:bg-red-700 transition"
+        (click)="removeTrackFromPlaylist(track)"
+      >
+        <img src="assets/icons/delete.png" alt="Remove Icon" class="w-4 h-4 hover:invert" />
+      </button>
+    </li>
+    <li *ngIf="!playlist?.tracks?.length" class="text-gray-400 py-4 text-center">Add tracks</li>
+  </ul>
+</div>

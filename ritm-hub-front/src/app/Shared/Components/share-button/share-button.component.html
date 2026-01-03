@@ -1,0 +1,29 @@
+<button
+  class="flex items-center gap-2 px-3 py-1 rounded bg-[#C16EFC] text-white hover:bg-[#7a0fc2] transition font-semibold shadow-md relative"
+  (click)="share()"
+>
+  <img src="assets/icons/share.png" alt="Share" class="w-4 h-4 invert" />
+  Share {{ item }}
+  <span
+    *ngIf="copied"
+    class="absolute -top-7 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1"
+    >Copied!</span
+  >
+</button>
+
+<div *ngIf="showUserInput" class="mt-2 bg-gray-800 p-4 rounded shadow">
+  <input
+    type="text"
+    [(ngModel)]="userQuery"
+    (input)="searchUsers()"
+    placeholder="Search by username or email"
+    class="px-2 py-1 rounded w-full mb-2"
+  />
+  <ul>
+    <li *ngFor="let user of users">
+      <button (click)="selectUser(user.id)" class="text-[#C16EFC] hover:underline">
+        {{ user.username }} ({{ user.email }})
+      </button>
+    </li>
+  </ul>
+</div>

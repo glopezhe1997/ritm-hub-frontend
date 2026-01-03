@@ -1,0 +1,7 @@
+<button
+  class="px-3 py-1 rounded transition"
+  [ngClass]="isFollowing ? 'bg-[#f87171] text-white hover:bg-[#c81e1e]' : 'bg-[#C16EFC] text-white hover:bg-[#7a0fc2]'"
+  (click)="toggleFollow()"
+>
+  {{ isFollowing ? 'Unfollow' : 'Follow' }}
+</button>

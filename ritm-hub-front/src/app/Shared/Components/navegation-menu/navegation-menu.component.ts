@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, startWith } from 'rxjs';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { AppState } from '../../../app.reducer';
-import { selectIsAuthenticated } from '../../../Auth/selectors/auth.selectors';
+import { isAdmin, selectIsAuthenticated } from '../../../Auth/selectors/auth.selectors';
 import { logout } from '../../../Auth/actions/auth.action';
 
 interface MenuItem {
@@ -12,9 +12,9 @@ interface MenuItem {
   route?: string;
   icon?: string;
   showLabel?: boolean;
-  requiresAuth?: boolean;  // true = solo si está autenticado
-  requiresGuest?: boolean; // true = solo si NO está autenticado
-  isLogout?: boolean;      // true = botón de logout
+  requiresAuth?: boolean;
+  requiresGuest?: boolean;
+  isLogout?: boolean;
 }
 
 @Component({
@@ -25,12 +25,10 @@ interface MenuItem {
   styleUrl: './navegation-menu.component.css'
 })
 export class NavegationMenuComponent implements OnInit {
-  isAuthenticated$!: Observable<boolean>;
-
   menuItems: MenuItem[] = [
     { label: 'Home', route: '/home', icon: 'home.png', showLabel: false },
     { label: 'Playlists', route: '/playlists', icon: 'songs-icon.png', showLabel: false, requiresAuth: true },
-    { label: 'Social', route: '/social', icon: 'social.png', showLabel: false, requiresAuth: true },
+    { label: 'Social', route: '/posts', icon: 'social.png', showLabel: false, requiresAuth: true },
     { label: 'Register', route: '/register', showLabel: true, requiresGuest: true },
     { label: 'Login', route: '/login', showLabel: true, requiresGuest: true },
     { label: 'Profile', route: '/profile', showLabel: true, requiresAuth: true },
@@ -38,22 +36,30 @@ export class NavegationMenuComponent implements OnInit {
     { label: 'Logout', showLabel: true, requiresAuth: true, isLogout: true }
   ];
 
+  menuState$!: Observable<{ isAuth: boolean, isAdmin: boolean }>;
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.isAuthenticated$ = this.store.select(selectIsAuthenticated).pipe(
-      startWith(false) // <-- Valor inicial
+    this.menuState$ = combineLatest([
+      this.store.select(selectIsAuthenticated).pipe(startWith(false)),
+      this.store.select(isAdmin).pipe(startWith(false))
+    ]).pipe(
+      map(([isAuth, isAdmin]) => ({ isAuth, isAdmin }))
     );
   }
 
-  shouldShowItem(item: MenuItem, isAuthenticated: boolean): boolean {
+  shouldShowItem(item: MenuItem, isAuthenticated: boolean, isAdmin: boolean): boolean {
+    if (item.label === 'Admin' && !isAdmin) {
+      return false;
+    }
     if (item.requiresAuth) {
       return isAuthenticated;
     }
     if (item.requiresGuest) {
       return !isAuthenticated;
     }
-    return true; // Siempre visible (como Home)
+    return true;
   }
 
   onLogout() {

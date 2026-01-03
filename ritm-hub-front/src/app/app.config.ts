@@ -15,6 +15,9 @@ import { PlaylistEffects } from './Playlists/effects';
 import { AuthEffects } from './Auth/effects/auth.effects';
 import { UsersEffects } from './Users/effects/users.effects';
 import { authInterceptor } from './Auth/interceptors/auth.interceptor';
+import { AdminEffects } from './Admin/effects/admin.effects';
+import { PostEffects } from './Posts/effects/post.effects';
+import { FollowEffects } from './Follow/effects/follow.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +32,9 @@ export const appConfig: ApplicationConfig = {
       PlaylistEffects,
       AuthEffects,
       UsersEffects,
+      AdminEffects,
+      PostEffects,
+      FollowEffects,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }),
     provideHttpClient(withInterceptors([authInterceptor])),

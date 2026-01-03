@@ -6,13 +6,13 @@
   >
     <h2 class="text-3xl text-white font-bold mb-6 text-center">Register</h2>
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Username:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Username:</label>
       <input
         type="text"
         formControlName="username"
         placeholder="Username..."
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="username.errors?.['required']">Username is required.</span>
@@ -20,13 +20,13 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Name:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Name:</label>
       <input
         type="text"
         formControlName="name"
         placeholder="Name..."
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="name.errors?.['required']">Name is required.</span>
@@ -34,12 +34,12 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Birthdate:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Birthdate:</label>
       <input
         type="date"
         formControlName="Birthdate"
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="Birthdate.invalid && (Birthdate.dirty || Birthdate.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="Birthdate.errors?.['required']">Birthdate is required.</span>
@@ -47,13 +47,13 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Email:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Email:</label>
       <input
         type="email"
         formControlName="email"
         placeholder="Email..."
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="email.errors?.['required']">Email is required.</span>
@@ -62,13 +62,13 @@
     </div>
 
     <div>
-      <label class="block mb-2 text-[#9810FA] font-semibold">Password:</label>
+      <label class="block mb-2 text-[#C16EFC] font-semibold">Password:</label>
       <input
         type="password"
         formControlName="password"
         placeholder="Password..."
         required
-        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#9810FA] w-full"
+        class="bg-[#1E2939] rounded-xl py-1 px-3 mr-1 text-white border border-gray-600 focus:outline-none focus:border-[#C16EFC] w-full"
       />
       <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-500 mt-1 text-sm">
         <span *ngIf="password.errors?.['required']">Password is required.</span>
@@ -80,10 +80,9 @@
     <button
       type="submit"
       [disabled]="registerForm.invalid"
-      class="w-full py-2 rounded-lg bg-[#9810FA] text-white font-bold hover:bg-[#7a0fc2] transition"
+      class="w-full py-2 rounded-lg bg-[#C16EFC] text-white font-bold hover:bg-[#7a0fc2] transition"
     >
       Register
     </button>
-    <div *ngIf="errorMessage" class="text-red-500 text-center mt-2">{{ errorMessage }}</div>
   </form>
 </div>

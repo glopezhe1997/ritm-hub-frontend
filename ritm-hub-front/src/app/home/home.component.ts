@@ -11,6 +11,7 @@ import { getTrendingArtists } from '../Artists/actions/artist.action';
 import { getTrendingAlbums } from '../Albums/actions';
 import { getTrendingTracks } from '../Tracks/actions';
 import { getTrendingPlaylists} from '../Playlists/actions';
+import { PlaylistSpotifyDto } from '../Playlists/Models/playlist-spotify.dto';
 
 interface TrendingItem {
   title: string;
@@ -77,15 +78,14 @@ export class HomeComponent implements OnInit {
       })))
     );
 
-    this.trendingPlaylists$ = this.store.select(state => state.playlistState.playlists).pipe(
+    this.trendingPlaylists$ = this.store.select(state => state.playlistState.trendingPlaylists).pipe(
       tap(playlists => console.log('Playlists from store:', playlists)),
       map(playlists => playlists
         .filter(playlist => playlist !== null && playlist !== undefined) // <-- Filtra nulos
         .map(playlist => ({
           title: playlist.name,
-          image: playlist.images?.[0]?.url || 'assets/default-playlist.png',
-          link: `/playlist/${playlist.id}`,
-          content: `By ${playlist.owner?.display_name || 'Unknown'} - ${playlist.tracks?.total || 0} tracks`
+          image: playlist.images?.[0]?.url || 'assets/default-playlist.png',          link: `/playlist/${playlist.id}`,
+          content: `By ${playlist.owner?.display_name || 'Unknown'}`
         }))
       )
     );

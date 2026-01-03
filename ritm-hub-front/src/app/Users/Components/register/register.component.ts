@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { CreateUserDto } from '../../models/create-user.dto';
 import { registerUser } from '../../actions/users.action';
+import { AppState } from '../../../app.reducer';
 
 @Component({
   selector: 'app-register',
@@ -19,10 +20,9 @@ export class RegisterComponent {
   Birthdate: FormControl;
   email: FormControl;
   password: FormControl;
-  errorMessage: string = '';
 
   constructor(
-    private store: Store,
+    private store: Store<AppState>,
     private formBuilder: FormBuilder
   ) {
     this.username = new FormControl('', [Validators.required]);
