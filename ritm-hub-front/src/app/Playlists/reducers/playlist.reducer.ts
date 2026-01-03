@@ -96,6 +96,7 @@ export const playlistsReducer = createReducer(
   //Get Playlist by Id
   on(PlaylistActions.getPlaylistById, (state) => ({
     ...state,
+    playlist: null,
     loading: true,
     error: null
   })),
@@ -167,6 +168,7 @@ export const playlistsReducer = createReducer(
   on(PlaylistActions.getPlaylistsSharedWithMe, (state) => ({
     ...state,
     loading: true,
+    playlist: null,
     sharedPlaylistsWithMe: [],
     error: null
   })),
