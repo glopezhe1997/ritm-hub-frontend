@@ -35,7 +35,6 @@ export class PlaylistDetailComponent implements OnInit {
     private routeActivated: ActivatedRoute,
     
   ) {
-    this.playlistId = Number(this.routeActivated.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
