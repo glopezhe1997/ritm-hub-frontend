@@ -44,6 +44,7 @@ describe('PlaylistDetailComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
+            paramMap: of({ get: () => '1' }), 
             snapshot: { paramMap: { get: () => '1' } }
           }
         }

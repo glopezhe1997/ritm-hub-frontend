@@ -56,7 +56,8 @@ export class ShareButtonComponent {
         this.toastService.show('Playlist correctly shared!', 'success'); // <-- toast
       },
       error: (err) => {
-        alert(err?.error?.message || 'Error sharing the playlist.');
+        this.toastService.show(err?.error?.message || 'Error sharing the playlist.', 'error'); // <-- toast
+        // alert(err?.error?.message || 'Error sharing the playlist.');
       }
     });
   }
